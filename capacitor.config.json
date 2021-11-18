@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "startUpFront",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
