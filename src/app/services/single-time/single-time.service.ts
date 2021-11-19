@@ -1,11 +1,13 @@
 import {Injectable} from "@angular/core";
-import {from, Observable} from "rxjs";
+import {BehaviorSubject, from, Observable} from "rxjs";
 import {Storage} from "@ionic/storage";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SingleTimeService {
+
+  private isNotFirstTime$ = new BehaviorSubject<boolean>(false);
 
   constructor(
     private storage: Storage,
@@ -16,6 +18,14 @@ export class SingleTimeService {
   }
 
   setIsNotFirstTime(): void {
-    this.storage.set('IS_NOT_FIRST_TIME', true);
+    this.storage.set('IS_NOT_FIRST_TIME', true)
+      .then(() => {
+        this.isNotFirstTime$
+          .next(true);
+      });
+  }
+
+  getCurrentIsNotFirstTimeState(): boolean {
+    return this.isNotFirstTime$.value;
   }
 }
