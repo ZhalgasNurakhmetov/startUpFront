@@ -1,0 +1,16 @@
+<ion-content [scrollY]="false" class="layout">
+  <swiper #swiper [config]="swiperConfig">
+    <ng-template swiperSlide *ngFor="let slide of slideContent">
+      <div class="slide slide__img">
+        <img [src]="slide.imgUrl" width="300rem" height="300rem" />
+      </div>
+      <div class="slide slide__text">
+        <ion-text [mode]="platform" class="slide-text">{{slide.text}}</ion-text>
+        <ion-button *ngIf="slide.last" [mode]="platform" class="ion-margin-top slide-button" color="tertiary" (click)="navigateToLogin()">
+          <ion-text [mode]="platform">Начать!</ion-text>
+        </ion-button>
+      </div>
+    </ng-template>
+  </swiper>
+</ion-content>
+

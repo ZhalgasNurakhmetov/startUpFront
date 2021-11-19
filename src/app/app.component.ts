@@ -1,10 +1,23 @@
-import { Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {Platform} from '@ionic/angular';
+import {PlatformService} from "./services/platform/platform.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  constructor() {}
+
+  constructor(
+    private platform: Platform,
+    private platformService: PlatformService,
+  ) {
+    this.initializeApp();
+  }
+
+  async initializeApp() {
+    await this.platform.ready();
+    this.platformService.setPlatform(this.platform.is('ios') ? 'ios' : 'md');
+  }
 }
