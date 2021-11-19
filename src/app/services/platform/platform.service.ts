@@ -1,18 +1,19 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
+import {Mode} from "@ionic/core";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlatformService {
 
-  private currentPlatform$ = new BehaviorSubject<string>('native');
+  private currentPlatform$ = new BehaviorSubject<Mode>('ios');
 
-  getPlatform(): Observable<string> {
-    return this.currentPlatform$;
+  getPlatform(): Mode {
+    return this.currentPlatform$.value;
   }
 
-  setPlatform(platform: string): void {
+  setPlatform(platform: Mode): void {
     this.currentPlatform$
       .next(platform);
   }

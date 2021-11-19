@@ -21,13 +21,13 @@ export class AppComponent {
     this.initializeApp();
   }
 
-  async initializeApp() {
+  async initializeApp(): Promise<any> {
     await this.platform.ready();
     this.platformService.setPlatform(this.platform.is('ios') ? 'ios' : 'md');
     this.checkIsFirstTime();
   }
 
-  private checkIsFirstTime() {
+  private checkIsFirstTime(): void {
     this.singleTimeService.getIsNotFirstTime()
       .subscribe(isFirstTime => {
         if (!isFirstTime) {

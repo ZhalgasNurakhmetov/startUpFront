@@ -1,0 +1,47 @@
+.login {
+  position: relative;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  &__logo {
+    flex: 1;
+    height: 25vh;
+    justify-content: center;
+  }
+
+  &__form {
+    flex: 2;
+    height: 65vh;
+    justify-content: flex-start;
+  }
+
+  &__actions {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    height: 10vh;
+    justify-content: space-evenly;
+  }
+}
+
+.logo-text {
+  --ion-background-color: #0000CC !important;
+  font-family: 'Rasa', serif;;
+  font-size: 3rem;
+  color: #0000CC;
+}
+
+.login-button {
+  width: 8rem;
+}
+
+.login-actions {
+    flex: 1;
+}
+
+.credential {
+  width: 20rem;
+}

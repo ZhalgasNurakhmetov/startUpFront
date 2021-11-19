@@ -1,9 +1,7 @@
 import {
   AfterContentChecked,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
-  OnDestroy,
   OnInit,
   ViewChild,
   ViewEncapsulation
@@ -11,11 +9,10 @@ import {
 import {SwiperComponent} from 'swiper/angular';
 import SwiperCore, {Pagination, SwiperOptions} from 'swiper';
 import {PlatformService} from '../services/platform/platform.service';
-import {takeUntil} from 'rxjs/operators';
-import {Subject} from 'rxjs';
 import {Router} from '@angular/router';
 import {AppRoutes} from '../app.routes';
-import {SingleTimeService} from "../services/single-time/single-time.service";
+import {SingleTimeService} from '../services/single-time/single-time.service';
+import {Mode} from "@ionic/core";
 
 
 SwiperCore.use([Pagination]);
@@ -25,7 +22,7 @@ SwiperCore.use([Pagination]);
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class SlidePage implements OnInit, AfterContentChecked, OnDestroy {
+export class SlidePage implements OnInit, AfterContentChecked {
 
   @ViewChild('swiper') swiper: SwiperComponent;
 
@@ -57,19 +54,16 @@ export class SlidePage implements OnInit, AfterContentChecked, OnDestroy {
     },
   ];
 
-  platform: string;
-
-  private unsubscribe$ = new Subject();
+  platform: Mode;
 
   constructor(
     private platformService: PlatformService,
     private singleTimeService: SingleTimeService,
     private router: Router,
-    private cd: ChangeDetectorRef,
   ) { }
 
-  ngOnInit() {
-    this.subscribeToPlatform();
+  ngOnInit(): void {
+    this.platform = this.platformService.getPlatform();
   }
 
   ngAfterContentChecked(): void {
@@ -78,27 +72,11 @@ export class SlidePage implements OnInit, AfterContentChecked, OnDestroy {
     }
   }
 
-  navigateToLogin() {
+  navigateToLogin(): void {
     this.router.navigate([AppRoutes.login])
       .then(() => {
         this.singleTimeService.setIsNotFirstTime();
       });
-  }
-
-  private subscribeToPlatform(): void {
-    this.platformService.getPlatform()
-      .pipe(
-        takeUntil(this.unsubscribe$),
-      )
-      .subscribe(platform => {
-        this.platform = platform;
-        this.cd.markForCheck();
-      });
-  }
-
-  ngOnDestroy() {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
   }
 
 }
