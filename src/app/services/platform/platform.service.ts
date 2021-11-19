@@ -6,13 +6,13 @@ import {BehaviorSubject, Observable} from 'rxjs';
 })
 export class PlatformService {
 
-  private currentPlatform$ = new BehaviorSubject('native');
+  private currentPlatform$ = new BehaviorSubject<string>('native');
 
-  getPlatform(): Observable<any> {
+  getPlatform(): Observable<string> {
     return this.currentPlatform$;
   }
 
-  setPlatform(platform: string) {
+  setPlatform(platform: string): void {
     this.currentPlatform$
       .next(platform);
   }

@@ -15,6 +15,7 @@ import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {Router} from '@angular/router';
 import {AppRoutes} from '../app.routes';
+import {SingleTimeService} from "../services/single-time/single-time.service";
 
 
 SwiperCore.use([Pagination]);
@@ -62,6 +63,7 @@ export class SlidePage implements OnInit, AfterContentChecked, OnDestroy {
 
   constructor(
     private platformService: PlatformService,
+    private singleTimeService: SingleTimeService,
     private router: Router,
     private cd: ChangeDetectorRef,
   ) { }
@@ -77,7 +79,10 @@ export class SlidePage implements OnInit, AfterContentChecked, OnDestroy {
   }
 
   navigateToLogin() {
-    this.router.navigate([AppRoutes.login]);
+    this.router.navigate([AppRoutes.login])
+      .then(() => {
+        this.singleTimeService.setIsNotFirstTime();
+      });
   }
 
   private subscribeToPlatform(): void {
