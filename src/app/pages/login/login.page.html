@@ -1,36 +1,37 @@
 <ion-content [scrollY]="false" class="layout">
-  <div class="login login__logo">
-    <ion-text class="logo-text">Bookberry</ion-text>
-  </div>
-  <div class="login login__form">
-    <form [formGroup]="form" (ngSubmit)="login()">
-      <ion-item [mode]="platform" lines="inset" class="credential">
-        <ion-label color="dark" [mode]="platform" position="floating">
-          Имя пользователя
-        </ion-label>
-        <ion-input [mode]="platform" clear-input type="email" inputmode="email" [formControl]="form?.controls?.username"
-        >
-        </ion-input>
-      </ion-item>
-      <ion-item [mode]="platform" lines="inset" class="credential">
-        <ion-label color="dark" [mode]="platform" position="floating">
-          Пароль
-        </ion-label>
-        <ion-input [mode]="platform" clear-input type="password" [formControl]="form?.controls?.password"
-        >
-        </ion-input>
-      </ion-item>
-      <ion-button type="submit" [mode]="platform" color="tertiary" class="ion-margin-top login-button">
-        Войти
-      </ion-button>
-    </form>
-  </div>
-  <div class="login login__actions">
+  <ion-progress-bar [mode]="platform" type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
+  <div class="login">
+    <ion-text class="login login__logo logo-text">Bookberry</ion-text>
+    <div class="login login__form">
+      <form [formGroup]="form" (ngSubmit)="login()">
+        <ion-item [mode]="platform" lines="inset" class="credential">
+          <ion-label color="dark" [mode]="platform" position="floating">
+            Имя пользователя
+          </ion-label>
+          <ion-input [mode]="platform" clear-input type="email" inputmode="email" [formControl]="form?.controls?.username"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-item [mode]="platform" lines="inset" class="credential">
+          <ion-label color="dark" [mode]="platform" position="floating">
+            Пароль
+          </ion-label>
+          <ion-input [mode]="platform" clear-input type="password" [formControl]="form?.controls?.password"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-button type="submit" [mode]="platform" color="tertiary" class="ion-margin-top login-button">
+          Войти
+        </ion-button>
+      </form>
+    </div>
+    <div class="login login__actions">
       <div class="login-actions">
         <ion-text [mode]="platform">Забыли пароль?</ion-text>
       </div>
       <div class="login-actions">
         <ion-button [mode]="platform" color="tertiary">Регистрация</ion-button>
       </div>
+    </div>
   </div>
 </ion-content>

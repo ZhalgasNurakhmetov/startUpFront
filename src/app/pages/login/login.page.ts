@@ -15,6 +15,7 @@ export class LoginPage implements OnInit{
 
   form = this.loginFormService.initLoginForm();
   platform: Mode;
+  isLoading: boolean;
 
   constructor(
     private platformService: PlatformService,
@@ -35,12 +36,12 @@ export class LoginPage implements OnInit{
       forEachControlIn(this.form).call('updateValueAndValidity');
       return;
     }
-    this.isLoading(true);
+    this.showLoading(true);
     this.authService.login(this.form.value)
       .pipe(
         take(1),
         finalize(() => {
-          this.isLoading(false);
+          this.showLoading(false);
         })
       )
       .subscribe(token => {
@@ -48,7 +49,8 @@ export class LoginPage implements OnInit{
       });
   }
 
-  private isLoading(isLoading: boolean): void {
+  private showLoading(isLoading: boolean): void {
+    this.isLoading = isLoading;
     this.cd.markForCheck();
   }
 
