@@ -2,10 +2,11 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@an
 import {LoginFormService} from "./form/login.form.service";
 import {PlatformService} from "../../services/platform/platform.service";
 import {Mode} from "@ionic/core";
-import {ToasterService} from "../../services/toaster/toaster.service";
 import {AuthService} from "../../core/auth/auth.service";
 import {forEachControlIn} from "ngx-forms-typed";
 import {finalize, take} from "rxjs/operators";
+import {Router} from "@angular/router";
+import {AppRoutes} from "../../app.routes";
 
 @Component({
   templateUrl: './login.page.html',
@@ -20,8 +21,8 @@ export class LoginPage implements OnInit{
   constructor(
     private platformService: PlatformService,
     private loginFormService: LoginFormService,
-    private toasterService: ToasterService,
     private authService: AuthService,
+    private router: Router,
     private cd: ChangeDetectorRef,
   ) { }
 
@@ -30,8 +31,7 @@ export class LoginPage implements OnInit{
   }
 
   login(): void {
-    if (!this.form.valid) {
-      this.toasterService.show('Заполните все поля', 'danger', this.platform);
+    if (this.form.invalid) {
       forEachControlIn(this.form).call('markAsTouched');
       forEachControlIn(this.form).call('updateValueAndValidity');
       return;
@@ -47,6 +47,10 @@ export class LoginPage implements OnInit{
       .subscribe(token => {
         console.log(token);
       });
+  }
+
+  navigateToRegistration(): void {
+    this.router.navigate([AppRoutes.registration]);
   }
 
   private showLoading(isLoading: boolean): void {

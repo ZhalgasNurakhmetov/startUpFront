@@ -1,0 +1,23 @@
+.registration {
+  position: relative;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  text-align: center;
+
+  &__logo {
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__form {
+    flex: 7;
+    align-items: center;
+    justify-content: flex-start;
+  }
+}
+
+.registration-button {
+  width: 8rem;
+}

@@ -14,6 +14,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule),
   },
   {
+    path: AppRoutes.registration,
+    loadChildren: () => import('./pages/registration/registration.module').then(m => m.RegistrationModule),
+  },
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: AppRoutes.slides,
