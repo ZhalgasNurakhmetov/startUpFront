@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import {AppRoutes} from './app.routes';
 import {SlidesPageGuard} from "./slides.page.guard";
+import {TabsPageGuard} from "./tabs.page.guard";
 
 const routes: Routes = [
   {
@@ -20,6 +21,11 @@ const routes: Routes = [
   {
     path: AppRoutes.passwordRestore,
     loadChildren: () => import('./pages/password-restore/password-restore.module').then(m => m.PasswordRestoreModule),
+  },
+  {
+    path: AppRoutes.tabs,
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
+    canActivate: [TabsPageGuard],
   },
   {
     path: '',

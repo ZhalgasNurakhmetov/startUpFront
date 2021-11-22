@@ -1,12 +1,21 @@
-import { Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Mode} from "@ionic/core";
+import {PlatformService} from "../services/platform/platform.service";
 
 @Component({
-  selector: 'app-tabs',
   templateUrl: 'tabs.page.html',
-  styleUrls: ['tabs.page.scss']
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TabsPage {
+export class TabsPage implements OnInit{
 
-  constructor() {}
+  platform: Mode;
+
+  constructor(
+    private platformService: PlatformService,
+  ) {}
+
+  ngOnInit(): void {
+    this.platform = this.platformService.getPlatform();
+  }
 
 }

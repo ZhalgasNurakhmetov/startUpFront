@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, from, Observable} from 'rxjs';
 import {Storage} from '@ionic/storage';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
@@ -17,15 +17,12 @@ export class AuthService {
     private http: HttpClient
   ) { }
 
-  getToken(): Promise<string> {
-    return this.storage.get('BOOKBERRY_TOKEN');
+  getToken(): Observable<string> {
+    return from(this.storage.get('BOOKBERRY_TOKEN'));
   }
 
-  setToken(token: string): Promise<any> {
-    return this.storage.set('BOOKBERRY_TOKEN', token)
-      .then(() => {
-        this.authenticationState$.next(true);
-    });
+  setToken(token: string): void {
+    this.storage.set('BOOKBERRY_TOKEN', token);
   }
 
   login(loginData: any): Observable<Token> {

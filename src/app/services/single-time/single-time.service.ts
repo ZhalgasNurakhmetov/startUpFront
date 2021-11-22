@@ -16,7 +16,7 @@ export class SingleTimeService {
   }
 
   setIsNotFirstTime(): void {
-    this.storage.set('IS_NOT_FIRST_TIME', true)
+    this.storage.set('IS_NOT_FIRST_TIME', true);
   }
 
 }

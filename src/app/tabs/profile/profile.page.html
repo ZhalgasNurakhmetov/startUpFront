@@ -1,0 +1,76 @@
+<ion-content [scrollY]="false" class="layout">
+  <div class="profile">
+    <div class="profile profile__info">
+      <div class="personal-info">
+        <ion-item lines="none" [mode]="platform">
+          <ion-avatar class="profile-avatar">
+            <ion-img *ngIf="currentUser?.photo; else defaultPhoto" [src]="currentUser?.photo">
+            </ion-img>
+          </ion-avatar>
+          <ion-label [mode]="platform" class="ion-margin-start">
+            <h2>
+              <ion-text [mode]="platform">
+                {{currentUser?.firstName}}
+              </ion-text>
+            </h2>
+            <h2>
+              <ion-text [mode]="platform">
+                {{currentUser?.lastName}}
+              </ion-text>
+            </h2>
+            <br>
+            <h2>
+              <ion-text [mode]="platform">
+                {{currentUser?.birthDate}}
+              </ion-text>
+            </h2>
+          </ion-label>
+        </ion-item>
+        <h6 *ngIf="currentUser?.about">
+          <ion-text [mode]="platform">
+            {{currentUser?.about}}
+          </ion-text>
+        </h6>
+        <ion-item lines="none" [mode]="platform" class="ion-margin-top">
+          <ion-label [mode]="platform">
+            <h6 class="ion-no-margin ion-text-center">
+              <ion-text [mode]="platform" class="ion-no-margin">
+                {{currentUser?.following?.length}}
+              </ion-text>
+            </h6>
+            <h6 class="ion-no-margin ion-text-center">
+              <ion-text [mode]="platform" class="ion-no-margin">
+                Подписки
+              </ion-text>
+            </h6>
+          </ion-label>
+          <ion-label [mode]="platform">
+            <h6 class="ion-no-margin ion-text-center">
+              <ion-text [mode]="platform" class="ion-no-margin">
+                {{currentUser?.followers?.length}}
+              </ion-text>
+            </h6>
+            <h6 class="ion-no-margin ion-text-center">
+              <ion-text [mode]="platform" class="ion-no-margin">
+                Подписчики
+              </ion-text>
+            </h6>
+          </ion-label>
+        </ion-item>
+      </div>
+      <div class="profile-actions">
+        <ion-icon [mode]="platform" name="heart" color="danger" class="actions">
+        </ion-icon>
+        <ion-icon [mode]="platform" name="settings-outline" class="actions">
+        </ion-icon>
+      </div>
+    </div>
+    <div class="profile profile__img">
+      <img src="assets/svg/profile.svg" width="300rem" height="300rem" alt="Изображение профиля">
+    </div>
+  </div>
+</ion-content>
+
+<ng-template #defaultPhoto>
+  <img src="assets/default-profile.png" alt="Изображение профиля по умолчанию">
+</ng-template>

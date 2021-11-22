@@ -1,30 +1,30 @@
 import {Injectable} from "@angular/core";
 import {CanActivate, Router, UrlTree} from "@angular/router";
-import {SingleTimeService} from "./services/single-time/single-time.service";
 import {Observable, of} from "rxjs";
 import {AppRoutes} from "./app.routes";
 import {catchError, map} from "rxjs/operators";
+import {AuthService} from "./core/auth/auth.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class SlidesPageGuard implements CanActivate{
+export class TabsPageGuard implements CanActivate{
 
   constructor(
-    private singleTimeService: SingleTimeService,
+    private authService: AuthService,
     private router: Router,
   ) { }
 
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.singleTimeService.getIsNotFirstTime()
+    return this.authService.getToken()
       .pipe(
-        map(isNotFirstTime => {
-          if (isNotFirstTime) {
-            return this.router.createUrlTree([AppRoutes.login]);
+        map(token => {
+          if (token) {
+            return true;
           }
-          return true;
+          return this.router.createUrlTree([AppRoutes.login]);
         }),
-        catchError(() => of(this.router.createUrlTree([AppRoutes.slides])))
+        catchError(() => of(this.router.createUrlTree([AppRoutes.login])))
       );
   }
 

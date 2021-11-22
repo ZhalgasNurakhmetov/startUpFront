@@ -45,7 +45,8 @@ export class LoginPage implements OnInit{
         })
       )
       .subscribe(token => {
-        console.log(token);
+        this.authService.setToken(token.access_token);
+        this.router.navigate([AppRoutes.tabs]);
       });
   }
 

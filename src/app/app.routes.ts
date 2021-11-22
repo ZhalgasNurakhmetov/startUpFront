@@ -3,4 +3,5 @@ export const AppRoutes = {
   login: 'login',
   registration: 'registration',
   passwordRestore: 'password-restore',
+  tabs: 'tabs',
 };
