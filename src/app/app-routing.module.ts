@@ -18,6 +18,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/registration/registration.module').then(m => m.RegistrationModule),
   },
   {
+    path: AppRoutes.passwordRestore,
+    loadChildren: () => import('./pages/password-restore/password-restore.module').then(m => m.PasswordRestoreModule),
+  },
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: AppRoutes.slides,

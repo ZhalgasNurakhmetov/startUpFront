@@ -2,7 +2,7 @@
   <swiper #swiper [config]="swiperConfig">
     <ng-template swiperSlide *ngFor="let slide of slideContent">
       <div class="slide slide__img">
-        <img [src]="slide.imgUrl" width="300rem" height="300rem" />
+        <img [src]="slide.imgUrl" width="300rem" height="300rem" alt="Слайд приветствия"/>
       </div>
       <div class="slide slide__text">
         <ion-text [mode]="platform" class="slide-text">{{slide.text}}</ion-text>

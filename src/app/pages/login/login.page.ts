@@ -53,6 +53,10 @@ export class LoginPage implements OnInit{
     this.router.navigate([AppRoutes.registration]);
   }
 
+  navigateToPasswordRestore(): void {
+    this.router.navigate([AppRoutes.passwordRestore]);
+  }
+
   private showLoading(isLoading: boolean): void {
     this.isLoading = isLoading;
     this.cd.markForCheck();

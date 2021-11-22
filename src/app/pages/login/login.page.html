@@ -27,7 +27,7 @@
     </div>
     <div class="login login__actions">
       <div class="login-actions">
-        <ion-text [mode]="platform">Забыли пароль?</ion-text>
+        <ion-text [mode]="platform" (click)="navigateToPasswordRestore()">Забыли пароль?</ion-text>
       </div>
       <div class="login-actions">
         <ion-button [mode]="platform" color="tertiary" (click)="navigateToRegistration()">Регистрация</ion-button>
