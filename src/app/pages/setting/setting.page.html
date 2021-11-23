@@ -10,10 +10,10 @@
   <div class="setting">
     <div class="setting setting__options">
       <ion-list [mode]="platform" lines="full">
-        <ion-item [mode]="platform" lines="full">
+        <ion-item [mode]="platform" lines="full" (click)="openProfileEditModal()">
           <ion-label [mode]="platform" class="ion-margin-start">Редактировать профиль</ion-label>
         </ion-item>
-        <ion-item [mode]="platform" lines="full">
+        <ion-item [mode]="platform" lines="full" (click)="openPasswordChangeModal()">
           <ion-label [mode]="platform" class="ion-margin-start">Изменить пароль</ion-label>
         </ion-item>
       </ion-list>

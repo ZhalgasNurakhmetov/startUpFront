@@ -1,13 +1,7 @@
 import {SettingPage} from "./setting.page";
-import {settingModalComponents, settingModalServices} from "./modals";
-import {SettingApi} from "./api/setting.api";
+import {settingModalComponents} from "./modals";
 
 export const settingComponents = [
   SettingPage,
   ...settingModalComponents,
-];
-
-export const settingServices = [
-  SettingApi,
-  ...settingModalServices,
 ];

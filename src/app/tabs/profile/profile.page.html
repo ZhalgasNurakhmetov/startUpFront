@@ -8,29 +8,26 @@
               <ion-img *ngIf="currentUser?.photo; else defaultPhoto" [src]="currentUser?.photo"></ion-img>
             </ion-avatar>
             <ion-label [mode]="platform" class="ion-margin-start">
-              <h2>
                 <ion-text [mode]="platform">
                   {{currentUser?.firstName}}
                 </ion-text>
-              </h2>
-              <h2>
+              <br>
                 <ion-text [mode]="platform">
                   {{currentUser?.lastName}}
                 </ion-text>
-              </h2>
               <br>
-              <h2>
                 <ion-text [mode]="platform">
                   {{currentUser?.birthDate | date: 'dd.MM.yyyy'}}
                 </ion-text>
-              </h2>
             </ion-label>
           </ion-item>
-          <h6 *ngIf="currentUser?.about">
-            <ion-text [mode]="platform">
-              {{currentUser?.about}}
-            </ion-text>
-          </h6>
+          <ion-item [mode]="platform" lines="none" *ngIf="currentUser?.about">
+            <ion-label [mode]="platform">
+              <ion-text [mode]="platform">
+                {{currentUser?.about}}
+              </ion-text>
+            </ion-label>
+          </ion-item>
         </div>
         <div class="profile-actions">
           <ion-icon [mode]="platform" name="heart" color="danger" class="actions" (click)="navigateToFavorite()"></ion-icon>
@@ -40,28 +37,28 @@
       <div class="profile profile__contacts">
         <ion-item lines="none" [mode]="platform" class="ion-margin-top profile-contacts">
           <ion-label [mode]="platform">
-            <h6 class="ion-no-margin ion-text-center">
+            <h2 class="ion-no-margin ion-text-center">
               <ion-text [mode]="platform" class="ion-no-margin">
                 {{currentUser?.following?.length}}
               </ion-text>
-            </h6>
-            <h6 class="ion-no-margin ion-text-center">
+            </h2>
+            <h2 class="ion-no-margin ion-text-center">
               <ion-text [mode]="platform" class="ion-no-margin">
                 Подписки
               </ion-text>
-            </h6>
+            </h2>
           </ion-label>
           <ion-label [mode]="platform">
-            <h6 class="ion-no-margin ion-text-center">
+            <h2 class="ion-no-margin ion-text-center">
               <ion-text [mode]="platform" class="ion-no-margin">
                 {{currentUser?.followers?.length}}
               </ion-text>
-            </h6>
-            <h6 class="ion-no-margin ion-text-center">
+            </h2>
+            <h2 class="ion-no-margin ion-text-center">
               <ion-text [mode]="platform" class="ion-no-margin">
                 Подписчики
               </ion-text>
-            </h6>
+            </h2>
           </ion-label>
         </ion-item>
       </div>

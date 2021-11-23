@@ -3,7 +3,8 @@ import {CommonModule} from '@angular/common';
 
 import {SettingRoutingModule} from './setting-routing.module';
 import {IonicModule} from "@ionic/angular";
-import {settingComponents, settingServices} from "./index";
+import {settingComponents} from "./index";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -14,9 +15,7 @@ import {settingComponents, settingServices} from "./index";
     CommonModule,
     SettingRoutingModule,
     IonicModule,
-  ],
-  providers: [
-    ...settingServices,
+    ReactiveFormsModule,
   ],
 })
 export class SettingModule { }
