@@ -1,6 +1,6 @@
 <ion-header [mode]="platform">
   <ion-toolbar [mode]="platform">
-    <ion-title>Редактирование</ion-title>
+    <ion-title><ion-text [mode]="platform">Редактирование</ion-text></ion-title>
     <ion-buttons slot="end">
       <ion-button [mode]="platform" (click)="dismiss()">Закрыть</ion-button>
     </ion-buttons>
@@ -13,7 +13,9 @@
       <form [formGroup]="form" (ngSubmit)="editProfile()">
         <ion-item [mode]="platform" lines="inset" class="credential">
           <ion-label color="tertiary" [mode]="platform" position="floating">
-            Имя
+            <ion-text [mode]="platform">
+              Имя
+            </ion-text>
           </ion-label>
           <ion-input [mode]="platform" inputmode="text" autocapitalize="words" clear-input autofocus type="text" [formControl]="form?.controls?.firstName">
           </ion-input>
@@ -31,7 +33,9 @@
         </div>
         <ion-item [mode]="platform" lines="inset">
           <ion-label color="tertiary" [mode]="platform" position="floating">
-            Фамилия
+            <ion-text [mode]="platform">
+              Фамилия
+            </ion-text>
           </ion-label>
           <ion-input [mode]="platform" inputmode="text" autocapitalize="words" clear-input type="text" [formControl]="form.controls.lastName">
           </ion-input>
@@ -49,7 +53,9 @@
         </div>
         <ion-item [mode]="platform" lines="inset">
           <ion-label color="tertiary" [mode]="platform" position="floating">
-            Дата рождения
+            <ion-text [mode]="platform">
+              Дата рождения
+            </ion-text>
           </ion-label>
           <ion-datetime [mode]="platform" cancel-text="Отмена" done-text="Готово" [monthShortNames]="monthList" [formControl]="form.controls.birthDate">
           </ion-datetime>
@@ -63,7 +69,9 @@
         </div>
         <ion-item [mode]="platform" lines="inset">
           <ion-label color="tertiary" [mode]="platform" position="floating">
-            Город
+            <ion-text [mode]="platform">
+              Город
+            </ion-text>
           </ion-label>
           <ion-select [mode]="platform" value="{{form?.controls?.city?.value}}" okText="Выбрать" cancelText="Закрыть" [formControl]="form?.controls?.city">
             <ion-select-option
@@ -84,7 +92,9 @@
         </div>
         <ion-item [mode]="platform" lines="inset">
           <ion-label color="tertiary" [mode]="platform" position="floating">
-            О себе
+            <ion-text [mode]="platform">
+              О себе
+            </ion-text>
           </ion-label>
           <ion-textarea [mode]="platform" inputmode="text" autocapitalize="sentences" maxlength="120" type="text" [formControl]="form.controls.about">
           </ion-textarea>
@@ -99,7 +109,11 @@
             Не может состоять только из пробелов
           </ion-text>
         </div>
-        <ion-button [mode]="platform" type="submit" color="tertiary" class="profile-edit-button ion-margin-top">Сохранить</ion-button>
+        <ion-button [mode]="platform" type="submit" color="tertiary" class="profile-edit-button ion-margin-top">
+          <ion-text [mode]="platform">
+            Сохранить
+          </ion-text>
+        </ion-button>
       </form>
     </div>
   </div>

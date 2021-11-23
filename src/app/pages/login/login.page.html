@@ -6,7 +6,9 @@
       <form [formGroup]="form" (ngSubmit)="login()">
         <ion-item [mode]="platform" lines="inset" class="credential">
           <ion-label color="tertiary" [mode]="platform" position="floating">
-            Имя пользователя
+            <ion-text [mode]="platform">
+              Имя пользователя
+            </ion-text>
           </ion-label>
           <ion-input [mode]="platform" clear-input type="email" inputmode="email" [formControl]="form?.controls?.username"
           >
@@ -14,14 +16,18 @@
         </ion-item>
         <ion-item [mode]="platform" lines="inset" class="credential">
           <ion-label color="tertiary" [mode]="platform" position="floating">
-            Пароль
+            <ion-text [mode]="platform">
+              Пароль
+            </ion-text>
           </ion-label>
           <ion-input [mode]="platform" clear-input type="password" [formControl]="form?.controls?.password"
           >
           </ion-input>
         </ion-item>
         <ion-button type="submit" [mode]="platform" color="tertiary" class="ion-margin-top login-button">
-          Войти
+          <ion-text [mode]="platform">
+            Войти
+          </ion-text>
         </ion-button>
       </form>
     </div>
@@ -30,7 +36,11 @@
         <ion-text [mode]="platform" (click)="navigateToPasswordRestore()">Забыли пароль?</ion-text>
       </div>
       <div class="login-actions">
-        <ion-button [mode]="platform" color="tertiary" (click)="navigateToRegistration()">Регистрация</ion-button>
+        <ion-button [mode]="platform" color="tertiary" (click)="navigateToRegistration()">
+          <ion-text [mode]="platform">
+            Регистрация
+          </ion-text>
+        </ion-button>
       </div>
     </div>
   </div>

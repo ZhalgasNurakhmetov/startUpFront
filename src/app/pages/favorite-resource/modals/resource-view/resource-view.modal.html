@@ -1,14 +1,18 @@
 <ion-header [mode]="platform">
   <ion-toolbar [mode]="platform">
     <ion-buttons slot="end">
-      <ion-button [mode]="platform" (click)="dismiss()">Закрыть</ion-button>
+      <ion-button [mode]="platform" (click)="dismiss()"><ion-text [mode]="platform">Закрыть</ion-text></ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content class="layout">
   <div class="resource">
     <div class="resource resource__owner">
-      <ion-button [mode]="platform" color="tertiary">Перейти на страницу пользователя</ion-button>
+      <ion-button [mode]="platform" color="tertiary">
+        <ion-text [mode]="platform">
+          Перейти на страницу пользователя
+        </ion-text>
+      </ion-button>
     </div>
     <div class="resource resource__info">
       <div class="resource-img">
