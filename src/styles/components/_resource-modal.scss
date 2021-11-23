@@ -1,0 +1,37 @@
+.resource {
+  position: relative;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+
+  &__owner {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  &__info {
+    flex: 2;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  &__about {
+    flex: 3;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+  }
+}
+
+.resource-img {
+  flex: 2;
+}
+
+.resource-detail {
+  flex: 2;
+}

@@ -1,0 +1,36 @@
+<ion-header [mode]="platform">
+  <ion-toolbar [mode]="platform">
+    <ion-buttons slot="end">
+      <ion-button [mode]="platform" (click)="dismiss()">Закрыть</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="layout">
+  <div class="resource">
+    <div class="resource resource__owner">
+      <ion-button [mode]="platform" color="tertiary">Перейти на страницу пользователя</ion-button>
+    </div>
+    <div class="resource resource__info">
+      <div class="resource-img">
+        <img src="assets/default-resource.png" width="300rem" height="200rem" alt="Изображение книги">
+      </div>
+      <div class="resource-detail">
+        <ul>
+          <li><ion-text [mode]="platform">{{resource?.title}}</ion-text></li>
+          <li><ion-text [mode]="platform">{{resource?.author}}</ion-text></li>
+          <li *ngIf="resource.year"><ion-text [mode]="platform">{{resource?.year}}</ion-text></li>
+          <li><ion-text [mode]="platform">{{resource?.literature}}</ion-text></li>
+          <li><ion-text [mode]="platform">{{resource?.language}}</ion-text></li>
+          <li *ngIf="resource.pageCount"><ion-text [mode]="platform">{{resource?.pageCount}} стр.</ion-text></li>
+          <li *ngIf="resource.condition"><ion-text [mode]="platform">{{resource?.condition}} состояние</ion-text></li>
+          <li><ion-text [mode]="platform">{{resource?.composition}}</ion-text></li>
+          <li *ngIf="resource.cover"><ion-text [mode]="platform">{{resource?.cover}}</ion-text></li>
+          <li *ngIf="resource.format"><ion-text [mode]="platform">{{resource?.format}}</ion-text></li>
+        </ul>
+      </div>
+    </div>
+    <div class="resource resource__about">
+      <ion-text *ngIf="resource.description" [mode]="resource">{{resource?.description}}</ion-text>
+    </div>
+  </div>
+</ion-content>

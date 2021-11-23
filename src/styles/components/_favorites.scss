@@ -1,0 +1,19 @@
+.favorite {
+  position: relative;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+
+  &__list {
+    flex: 1;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  &__empty {
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+  }
+
+}

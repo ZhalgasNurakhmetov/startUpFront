@@ -28,6 +28,10 @@ const routes: Routes = [
     canActivate: [TabsPageGuard],
   },
   {
+    path: AppRoutes.favorites,
+    loadChildren: () => import('./pages/favorite-resource/favorite-resource.module').then(m => m.FavoriteResourceModule),
+  },
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: AppRoutes.slides,

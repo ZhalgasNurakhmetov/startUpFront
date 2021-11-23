@@ -1,0 +1,64 @@
+<ion-header [mode]="platform">
+  <ion-toolbar [mode]="platform">
+    <ion-buttons slot="start">
+      <ion-back-button [mode]="platform" [text]="'Назад'"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Понравилось</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="layout">
+  <div class="favorite">
+    <ion-virtual-scroll [items]="resourceList" class="favorite favorite__list" *ngIf="resourceList?.length; else noFavoriteResources">
+      <ion-item-sliding *virtualItem="let resource">
+        <ion-item lines="full" [mode]="platform" (click)="openResourceViewModal(resource)">
+          <ion-label [mode]="platform">
+            <ion-text [mode]="platform">
+              {{resource?.resource?.title}} | Автор: {{resource?.resource?.author}}
+            </ion-text>
+            <br>
+            <ion-text [mode]="platform">
+              Владелец: {{resource?.resource?.owner?.firstName}}
+            </ion-text>
+          </ion-label>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option [mode]="platform" color="danger">Удалить</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-virtual-scroll>
+  </div>
+
+ <!-- <div fxLayout="column" fxFill>
+    <div fxFlex fxLayout="column">
+      <cdk-virtual-scroll-viewport [itemSize]="56" fxFlex minBufferPx="900"
+                                   maxBufferPx="1350">
+        <ion-list [mode]="platform" lines="full">
+          <ion-item [mode]="platform"
+                    *cdkVirtualFor="let resource of resourceList; let i = index; trackBy: trackById; let idOdd = odd"
+                    [class.odd]="idOdd"
+          >
+            <ion-label [mode]="platform">
+              <ion-text [mode]="platform">
+                {{resource?.resource?.title}} | Автор: {{resource?.resource?.author}}
+              </ion-text>
+              <br>
+              <ion-text [mode]="platform">
+                Владелец: {{resource?.resource?.owner?.firstName}}
+              </ion-text>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </cdk-virtual-scroll-viewport>
+    </div>
+  </div>-->
+
+</ion-content>
+
+<ng-template #noFavoriteResources>
+  <div class="favorite favorite__empty">
+    <ion-text [mode]="platform" class="ion-margin-bottom">
+      Список пуст
+    </ion-text>
+    <img src="assets/svg/empty.svg" width="300rem" height="300rem" alt="Нет результатов">
+  </div>
+</ng-template>
