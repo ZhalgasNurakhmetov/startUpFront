@@ -22,7 +22,7 @@
           </ion-label>
         </ion-item>
         <ion-item-options side="end">
-          <ion-item-option [mode]="platform" color="danger">Удалить</ion-item-option>
+          <ion-item-option [mode]="platform" color="danger" (click)="unlikeResource(resource)">Удалить</ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
     </ion-virtual-scroll>

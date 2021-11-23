@@ -11,13 +11,14 @@ export interface UserBase {
 
 export interface User extends UserBase{
   resourceList: Resource[];
-  likedResourceList: UserLike[];
+  favoriteResourceList: UserLike[];
   following: UserBase[];
   followers: UserBase[];
 }
 
 export interface Resource {
   id: string;
+  image: string;
   available: boolean;
   personal: boolean;
   title: string;
@@ -34,17 +35,17 @@ export interface Resource {
   likes: number;
   ownerId: string;
   owner: UserBase;
-  likedUserList: UserLikedResource[];
+  favoriteUserList: UserLikedResource[];
 }
 
 export interface UserLikedResource {
   id: string;
-  user_id: string;
+  userId: string;
   user: UserBase;
 }
 
 export interface UserLike {
   id: string;
-  resource_id: string;
+  resourceId: string;
   resource: Resource;
 }

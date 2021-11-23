@@ -5,6 +5,7 @@ import {Mode} from "@ionic/core";
 import {PlatformService} from "../../services/platform/platform.service";
 import {Router} from "@angular/router";
 import {AppRoutes} from "../../app.routes";
+import {Observable} from "rxjs";
 
 @Component({
   templateUrl: './profile.page.html',
@@ -12,7 +13,7 @@ import {AppRoutes} from "../../app.routes";
 })
 export class ProfilePage implements OnInit {
 
-  currentUser: User;
+  currentUser$: Observable<User>;
   platform: Mode;
 
   constructor(
@@ -22,8 +23,8 @@ export class ProfilePage implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.currentUser = this.currentUserService.getCurrentUser();
     this.platform = this.platformService.getPlatform();
+    this.currentUser$ = this.currentUserService.getCurrentUser();
   }
 
   navigateToFavorite(): void {

@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {User} from "../../core/models/user";
 
 @Injectable({
@@ -9,8 +9,8 @@ export class CurrentUserService {
 
   private currentUser$ = new BehaviorSubject<User>(null);
 
-  getCurrentUser(): User {
-    return this.currentUser$.value;
+  getCurrentUser(): Observable<User> {
+    return this.currentUser$;
   }
 
   setCurrentUser(user: User): void {

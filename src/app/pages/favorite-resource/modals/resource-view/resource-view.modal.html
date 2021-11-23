@@ -18,14 +18,14 @@
         <ul>
           <li><ion-text [mode]="platform">{{resource?.title}}</ion-text></li>
           <li><ion-text [mode]="platform">{{resource?.author}}</ion-text></li>
-          <li *ngIf="resource.year"><ion-text [mode]="platform">{{resource?.year}}</ion-text></li>
+          <li *ngIf="resource.year"><ion-text [mode]="platform">{{resource?.year}} г.</ion-text></li>
           <li><ion-text [mode]="platform">{{resource?.literature}}</ion-text></li>
           <li><ion-text [mode]="platform">{{resource?.language}}</ion-text></li>
           <li *ngIf="resource.pageCount"><ion-text [mode]="platform">{{resource?.pageCount}} стр.</ion-text></li>
           <li *ngIf="resource.condition"><ion-text [mode]="platform">{{resource?.condition}} состояние</ion-text></li>
           <li><ion-text [mode]="platform">{{resource?.composition}}</ion-text></li>
-          <li *ngIf="resource.cover"><ion-text [mode]="platform">{{resource?.cover}}</ion-text></li>
-          <li *ngIf="resource.format"><ion-text [mode]="platform">{{resource?.format}}</ion-text></li>
+          <li *ngIf="resource.cover"><ion-text [mode]="platform">{{resource?.cover}} переплет</ion-text></li>
+          <li *ngIf="resource.format"><ion-text [mode]="platform">{{resource?.format}} формат</ion-text></li>
         </ul>
       </div>
     </div>
