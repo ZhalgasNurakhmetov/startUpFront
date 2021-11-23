@@ -31,4 +31,8 @@ export class ProfilePage implements OnInit {
     this.router.navigate([AppRoutes.favorites]);
   }
 
+  navigateToSetting(): void {
+    this.router.navigate([AppRoutes.setting]);
+  }
+
 }

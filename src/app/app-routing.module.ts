@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import {AppRoutes} from './app.routes';
 import {SlidesPageGuard} from "./slides.page.guard";
-import {TabsPageGuard} from "./tabs.page.guard";
+import {AuthenticatedGuard} from "./authenticated.guard";
 
 const routes: Routes = [
   {
@@ -25,11 +25,17 @@ const routes: Routes = [
   {
     path: AppRoutes.tabs,
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
-    canActivate: [TabsPageGuard],
+    canActivate: [AuthenticatedGuard],
   },
   {
     path: AppRoutes.favorites,
     loadChildren: () => import('./pages/favorite-resource/favorite-resource.module').then(m => m.FavoriteResourceModule),
+    canActivate: [AuthenticatedGuard],
+  },
+  {
+    path: AppRoutes.setting,
+    loadChildren: () => import('./pages/setting/setting.module').then(m => m.SettingModule),
+    canActivate: [AuthenticatedGuard],
   },
   {
     path: '',

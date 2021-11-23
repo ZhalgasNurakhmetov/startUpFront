@@ -8,7 +8,7 @@ import {AuthService} from "./core/auth/auth.service";
 @Injectable({
   providedIn: 'root'
 })
-export class TabsPageGuard implements CanActivate{
+export class AuthenticatedGuard implements CanActivate{
 
   constructor(
     private authService: AuthService,

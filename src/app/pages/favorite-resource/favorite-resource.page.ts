@@ -55,7 +55,7 @@ export class FavoriteResourcePage implements OnInit, OnDestroy {
       });
   }
 
-  private subscribeToCurrentUser() {
+  private subscribeToCurrentUser(): void {
     this.currentUserService.getCurrentUser()
       .pipe(
         takeUntil(this.unsubscribe$)
@@ -67,7 +67,7 @@ export class FavoriteResourcePage implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }

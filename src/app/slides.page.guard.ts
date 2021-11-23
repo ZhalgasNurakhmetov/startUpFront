@@ -20,11 +20,11 @@ export class SlidesPageGuard implements CanActivate{
       .pipe(
         map(isNotFirstTime => {
           if (isNotFirstTime) {
-            return this.router.createUrlTree([AppRoutes.login]);
+            return this.router.createUrlTree([AppRoutes.tabs]);
           }
           return true;
         }),
-        catchError(() => of(this.router.createUrlTree([AppRoutes.slides])))
+        catchError(() => of(this.router.createUrlTree([AppRoutes.login])))
       );
   }
 
