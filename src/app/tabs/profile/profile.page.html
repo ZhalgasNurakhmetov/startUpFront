@@ -1,4 +1,15 @@
 <ion-content [scrollY]="false" class="layout">
+  <ion-progress-bar [mode]="platform" color="tertiary" type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
+  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)"
+  >
+    <ion-refresher-content
+      pullingIcon="{{refreshingAttribute}}"
+      pullingText="Потяните вниз"
+      refreshingSpinner="{{refreshingAttribute}}"
+      refreshingText="Обновление"
+    >
+    </ion-refresher-content>
+  </ion-refresher>
   <div class="profile">
     <ng-container *ngIf="currentUser$ | async; let currentUser">
       <div class="profile profile__info">
