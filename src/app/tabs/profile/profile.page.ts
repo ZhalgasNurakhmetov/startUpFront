@@ -35,4 +35,8 @@ export class ProfilePage implements OnInit {
     this.router.navigate([AppRoutes.setting]);
   }
 
+  navigateToContact(): void {
+    this.router.navigate([AppRoutes.contact]);
+  }
+
 }

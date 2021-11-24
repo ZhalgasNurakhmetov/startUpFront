@@ -6,4 +6,5 @@ export const AppRoutes = {
   tabs: 'tabs',
   favorites: 'favorites',
   setting: 'setting',
+  contact: 'contact',
 };

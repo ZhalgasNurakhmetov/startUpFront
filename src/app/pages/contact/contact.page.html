@@ -1,0 +1,33 @@
+<ion-header [mode]="platform">
+  <ion-toolbar [mode]="platform">
+    <ion-buttons slot="start">
+      <ion-back-button [mode]="platform" [text]="'Назад'"></ion-back-button>
+    </ion-buttons>
+    <ion-title><ion-text [mode]="platform">Контакты</ion-text></ion-title>
+  </ion-toolbar>
+  <ion-segment [mode]="platform" value="FOLLOWED" (ionChange)="chooseContactList()">
+    <ion-segment-button [mode]="platform" value="FOLLOWED">
+      <ion-label [mode]="platform">
+        <ion-text [mode]="platform">
+          Подписки
+        </ion-text>
+      </ion-label>
+    </ion-segment-button>
+    <ion-segment-button [mode]="platform" value="FOLLOWER">
+      <ion-label [mode]="platform">
+        <ion-text [mode]="platform">
+          Подписчики
+        </ion-text>
+      </ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-header>
+<ion-content class="layout">
+  <div class="contact">
+    <contact-list [contactList]="following" [platform]="platform" *ngIf="isFollowingList; else followerList"></contact-list>
+  </div>
+</ion-content>
+
+<ng-template #followerList>
+  <contact-list [contactList]="followers" [platform]="platform"></contact-list>
+</ng-template>

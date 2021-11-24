@@ -5,12 +5,12 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content class="layout">
+<ion-content class="layout" [scrollY]="false">
   <div class="resource">
     <div class="resource resource__owner">
       <ion-button [mode]="platform" color="tertiary">
         <ion-text [mode]="platform">
-          Перейти на страницу пользователя
+          Перейти на страницу владельца
         </ion-text>
       </ion-button>
     </div>
@@ -20,6 +20,7 @@
       </div>
       <div class="resource-detail">
         <ul>
+          <li><ion-text [color]="resource?.available ? 'success' : 'danger'" [mode]="platform">{{resource?.available ? 'Доступен' : 'Не доступен'}}</ion-text></li>
           <li><ion-text [mode]="platform">{{resource?.title}}</ion-text></li>
           <li><ion-text [mode]="platform">{{resource?.author}}</ion-text></li>
           <li *ngIf="resource.year"><ion-text [mode]="platform">{{resource?.year}} г.</ion-text></li>

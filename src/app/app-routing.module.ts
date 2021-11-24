@@ -38,6 +38,10 @@ const routes: Routes = [
     canActivate: [AuthenticatedGuard],
   },
   {
+    path: AppRoutes.contact,
+    loadChildren: () => import('./pages/contact/contact.module').then(m => m.ContactModule),
+  },
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: AppRoutes.slides,
