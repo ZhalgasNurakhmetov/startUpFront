@@ -1,0 +1,34 @@
+<ion-virtual-scroll class="resource-list resource-list__list" [items]="resourceList" *ngIf="resourceList?.length; else noResourceList">
+  <ion-item-sliding *virtualItem="let resource">
+    <ion-item-options side="start">
+      <ion-item-option [mode]="platform" color="warning">
+        <ion-text [mode]="platform">
+          Редактировать
+        </ion-text>
+      </ion-item-option>
+    </ion-item-options>
+    <ion-item lines="full" [mode]="platform">
+      <ion-label [mode]="platform">
+        <ion-text [mode]="platform">
+          {{resource?.title}} | {{resource?.author}}
+        </ion-text>
+      </ion-label>
+    </ion-item>
+    <ion-item-options side="end">
+      <ion-item-option [mode]="platform" color="danger" (click)="onDeleteResource.emit(resource.id)">
+        <ion-text [mode]="platform">
+          Удалить
+        </ion-text>
+      </ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+</ion-virtual-scroll>
+
+<ng-template #noResourceList>
+  <div class="resource-list resource-list__empty">
+    <ion-text [mode]="platform" class="ion-margin-bottom">
+      Список пуст
+    </ion-text>
+    <img src="assets/svg/empty.svg" width="300rem" height="300rem" alt="Нет результатов">
+  </div>
+</ng-template>

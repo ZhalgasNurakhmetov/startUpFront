@@ -1,0 +1,39 @@
+<ion-header [mode]="platform">
+  <ion-segment [mode]="platform" value="PERSONAL" (ionChange)="chooseResourceList()">
+    <ion-segment-button [mode]="platform" value="PERSONAL">
+      <ion-label [mode]="platform">
+        <ion-text [mode]="platform">
+          Личные
+        </ion-text>
+      </ion-label>
+    </ion-segment-button>
+    <ion-segment-button [mode]="platform" value="INTERESTED">
+      <ion-label [mode]="platform">
+        <ion-text [mode]="platform">
+          Интересующие
+        </ion-text>
+      </ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-header>
+<ion-content class="layout">
+  <ion-progress-bar [mode]="platform" color="tertiary" type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
+  <div class="resource-list">
+    <resource-list
+      [resourceList]="personalResourceList"
+      [platform]="platform"
+      *ngIf="isPersonal; else interestedResource"
+      (onDeleteResource)="deleteResource($event, true)"
+    >
+    </resource-list>
+  </div>
+</ion-content>
+
+<ng-template #interestedResource>
+  <resource-list
+    [resourceList]="interestedResourceList"
+    [platform]="platform"
+    (onDeleteResource)="deleteResource($event, false)"
+  >
+  </resource-list>
+</ng-template>
