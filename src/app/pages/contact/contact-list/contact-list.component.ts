@@ -14,4 +14,8 @@ export class ContactListComponent {
 
   constructor() { }
 
+  trackById(index, { id }: UserBase) {
+    return id;
+  }
+
 }

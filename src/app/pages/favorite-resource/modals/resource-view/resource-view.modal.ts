@@ -11,12 +11,13 @@ export class ResourceViewModal {
 
   @Input() platform: Mode;
   @Input() resource: Resource;
+  isLoading: boolean;
 
   constructor(
     private modalCtrl: ModalController,
   ) { }
 
-  dismiss() {
+  dismiss(): void {
     this.modalCtrl.dismiss();
   }
 

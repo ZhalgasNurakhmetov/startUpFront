@@ -1,0 +1,341 @@
+<ion-header [mode]="platform">
+  <ion-toolbar [mode]="platform">
+    <ion-buttons slot="end">
+      <ion-button [mode]="platform" (click)="dismiss()" [disabled]="isLoading"><ion-text [mode]="platform">Закрыть</ion-text></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="layout">
+  <ion-progress-bar [mode]="platform" type="indeterminate" *ngIf="isLoading" color="tertiary"></ion-progress-bar>
+  <div class="resource-edit">
+    <div class="resource-edit resource-edit__form">
+      <form [formGroup]="form" (ngSubmit)="update()">
+        <ion-item [mode]="platform" lines="inset" class="credential">
+          <ion-label color="tertiary" [mode]="platform" position="floating">
+            <ion-text [mode]="platform">Название</ion-text>
+          </ion-label>
+          <ion-input [mode]="platform" inputmode="text" autocapitalize="sentences" clear-input autofocus type="text" [formControl]="form.controls.title">
+          </ion-input>
+        </ion-item>
+        <div
+          *ngIf="form.controls.title.errors && (form.controls.title.dirty || form.controls.title.touched)"
+        >
+          <ion-text *ngIf="form.controls.title.errors.required" [mode]="platform" color="danger">
+            Обязательное поле
+          </ion-text>
+          <ion-text [mode]="platform" *ngIf="form.controls.title.errors.pattern" color="danger">
+            Не может состоять только из пробелов
+          </ion-text>
+        </div>
+        <ion-item [mode]="platform" lines="inset">
+          <ion-label color="tertiary" [mode]="platform" position="floating">
+            <ion-text [mode]="platform">Автор</ion-text>
+          </ion-label>
+          <ion-input [mode]="platform" inputmode="text" autocapitalize="sentences" clear-input type="text" [formControl]="form.controls.author">
+          </ion-input>
+        </ion-item>
+        <div
+          *ngIf="form.controls.author.errors && (form.controls.author.dirty || form.controls.author.touched)"
+        >
+          <ion-text *ngIf="form.controls.author.errors.required" [mode]="platform" color="danger">
+            Обязательное поле
+          </ion-text>
+          <ion-text [mode]="platform" *ngIf="form.controls.author.errors.pattern" color="danger">
+            <ion-text [mode]="platform">Не может состоять только из пробелов</ion-text>
+          </ion-text>
+        </div>
+        <ion-item [mode]="platform" lines="inset">
+          <ion-label color="tertiary" [mode]="platform" position="floating">
+            <ion-text [mode]="platform">Год</ion-text>
+          </ion-label>
+          <ion-input [mode]="platform" inputmode="text" clear-input type="text" [formControl]="form.controls.year">
+          </ion-input>
+        </ion-item>
+        <div
+          *ngIf="form.controls.year.errors && (form.controls.year.dirty || form.controls.year.touched)"
+        >
+          <ion-text *ngIf="form.controls.year.errors.maxlength" [mode]="platform" color="danger">
+            Максимальная длина 4 символа
+          </ion-text>
+          <ion-text [mode]="platform" *ngIf="form.controls.year.errors.pattern" color="danger">
+            Может содержать только цифры
+          </ion-text>
+        </div>
+        <ion-item [mode]="platform"
+          lines="inset"
+        >
+          <ion-label
+            color="tertiary"
+            [mode]="platform"
+            position="floating"
+
+          >
+            <ion-text [mode]="platform">Категория</ion-text>
+          </ion-label>
+          <ion-select
+            [mode]="platform"
+            value="{{form?.controls?.literature?.value}}"
+            okText="Выбрать"
+            cancelText="Закрыть"
+            [formControl]="form?.controls?.literature"
+          >
+            <ion-select-option
+              *ngFor="let literature of literatureList; let i = index; trackBy: trackById"
+              value="{{literature}}"
+            >
+              <ion-text [mode]="platform">{{literature}}</ion-text>
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <div
+          *ngIf="form.controls.literature.errors && (form.controls.literature.dirty || form.controls.literature.touched)"
+        >
+          <ion-text
+            *ngIf="form.controls.literature.errors.required"
+            [mode]="platform"
+            color="danger"
+          >
+            Обязательное поле
+          </ion-text>
+        </div>
+        <ion-item
+          [mode]="platform"
+          lines="inset"
+        >
+          <ion-label
+            color="tertiary"
+            [mode]="platform"
+            position="floating"
+          >
+            Вид переплета
+          </ion-label>
+          <ion-select
+            [mode]="platform"
+            value="{{form?.controls?.cover?.value}}"
+            okText="Выбрать"
+            cancelText="Закрыть"
+            [formControl]="form?.controls?.cover"
+          >
+            <ion-select-option
+              *ngFor="let cover of coverList; let i = index; trackBy: trackById"
+              value="{{cover}}"
+            >
+              <ion-text [mode]="platform">{{cover}}</ion-text>
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item
+          [mode]="platform"
+          lines="inset"
+        >
+          <ion-label
+            color="tertiary"
+            [mode]="platform"
+            position="floating"
+          >
+            <ion-text [mode]="platform">Язык</ion-text>
+          </ion-label>
+          <ion-select
+            [mode]="platform"
+            value="{{form?.controls?.language?.value}}"
+            okText="Выбрать"
+            cancelText="Закрыть"
+            [formControl]="form?.controls?.language"
+          >
+            <ion-select-option
+              *ngFor="let language of languageList; let i = index; trackBy: trackById"
+              value="{{language}}"
+            >
+             <ion-text [mode]="platform">{{language}}</ion-text>
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <div
+          *ngIf="form.controls.language.errors && (form.controls.language.dirty || form.controls.language.touched)"
+        >
+          <ion-text
+            *ngIf="form.controls.language.errors.required"
+            [mode]="platform"
+            color="danger"
+          >
+            Обязательное поле
+          </ion-text>
+        </div>
+        <ion-item
+          [mode]="platform"
+          lines="inset"
+        >
+          <ion-label
+            color="tertiary"
+            [mode]="platform"
+            position="floating"
+          >
+            <ion-text [mode]="platform">Количество страниц</ion-text>
+          </ion-label>
+          <ion-input
+            [mode]="platform"
+            inputmode="text"
+            clear-input
+            type="text"
+            [formControl]="form.controls.pageCount"
+          >
+          </ion-input>
+        </ion-item>
+        <div
+          *ngIf="form.controls.pageCount.errors && (form.controls.pageCount.dirty || form.controls.pageCount.touched)"
+        >
+          <ion-text
+            *ngIf="form.controls.pageCount.errors.maxlength"
+            [mode]="platform"
+            color="danger"
+          >
+            Максимальная длина 4 символа
+          </ion-text>
+          <ion-text
+            [mode]="platform"
+            *ngIf="form.controls.pageCount.errors.pattern"
+            color="danger"
+          >
+            Может содержать только цифры
+          </ion-text>
+        </div>
+        <ion-item
+          [mode]="platform"
+          lines="inset"
+        >
+          <ion-label
+            color="tertiary"
+            [mode]="platform"
+            position="floating"
+          >
+            <ion-text [mode]="platform">Комплектация</ion-text>
+          </ion-label>
+          <ion-select
+            [mode]="platform"
+            value="{{form?.controls?.composition?.value}}"
+            okText="Выбрать"
+            cancelText="Закрыть"
+            [formControl]="form?.controls?.composition"
+          >
+            <ion-select-option
+              *ngFor="let composition of compositionList; let i = index; trackBy: trackById"
+              value="{{composition}}"
+            >
+              <ion-text [mode]="platform">{{composition}}</ion-text>
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <div
+          *ngIf="form.controls.composition.errors && (form.controls.composition.dirty || form.controls.composition.touched)"
+        >
+          <ion-text
+            *ngIf="form.controls.composition.errors.required"
+            [mode]="platform"
+            color="danger"
+          >
+            Обязательное поле
+          </ion-text>
+        </div>
+        <ion-item
+          [mode]="platform"
+          lines="inset"
+        >
+          <ion-label
+            color="tertiary"
+            [mode]="platform"
+            position="floating"
+          >
+            <ion-text [mode]="platform">Формат литературы</ion-text>
+          </ion-label>
+          <ion-select
+            [mode]="platform"
+            value="{{form?.controls?.format?.value}}"
+            okText="Выбрать"
+            cancelText="Закрыть"
+            [formControl]="form?.controls?.format"
+          >
+            <ion-select-option
+              *ngFor="let format of formatList; let i = index; trackBy: trackById"
+              value="{{format}}"
+            >
+              <ion-text [mode]="platform">{{format}}</ion-text>
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item
+          [mode]="platform"
+          lines="inset"
+        >
+          <ion-label
+            color="tertiary"
+            [mode]="platform"
+            position="floating"
+          >
+            <ion-text [mode]="platform">Состояние</ion-text>
+          </ion-label>
+          <ion-select
+            [mode]="platform"
+            value="{{form?.controls?.condition?.value}}"
+            okText="Выбрать"
+            cancelText="Закрыть"
+            [formControl]="form?.controls?.condition"
+          >
+            <ion-select-option
+              *ngFor="let condition of conditionList; let i = index; trackBy: trackById"
+              value="{{condition}}"
+            >
+              <ion-text [mode]="platform">{{condition}}</ion-text>
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item
+          [mode]="platform"
+          lines="inset"
+        >
+          <ion-label
+            color="tertiary"
+            [mode]="platform"
+            position="floating"
+          >
+            <ion-text [mode]="platform">Описание</ion-text>
+          </ion-label>
+          <ion-textarea
+            [mode]="platform"
+            inputmode="text"
+            autocapitalize="sentences"
+            type="text"
+            [formControl]="form.controls.description"
+          >
+          </ion-textarea>
+        </ion-item>
+        <div
+          *ngIf="form.controls.description.errors && (form.controls.description.dirty || form.controls.description.touched)"
+        >
+          <ion-text
+            *ngIf="form.controls.description.errors.maxlength"
+            [mode]="platform"
+            color="danger"
+          >
+            Максимальная длина 120 символов
+          </ion-text>
+          <ion-text
+            [mode]="platform"
+            *ngIf="form.controls.description.errors.pattern"
+            color="danger"
+          >
+            Не может состоять только из пробелов
+          </ion-text>
+        </div>
+        <ion-button
+          [mode]="platform"
+          class="ion-margin-top resource-edit-button"
+          type="submit"
+          color="tertiary"
+          [disabled]="isLoading"
+        >
+          Сохранить
+        </ion-button>
+      </form>
+    </div>
+  </div>
+</ion-content>

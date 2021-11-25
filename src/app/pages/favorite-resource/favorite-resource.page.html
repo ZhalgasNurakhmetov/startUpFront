@@ -1,14 +1,14 @@
 <ion-header [mode]="platform">
   <ion-toolbar [mode]="platform">
     <ion-buttons slot="start">
-      <ion-back-button [mode]="platform" [text]="'Назад'" [defaultHref]="'tabs/profile'"></ion-back-button>
+      <ion-back-button [mode]="platform" [text]="'Назад'" [disabled]="isLoading" [defaultHref]="'tabs/profile'"></ion-back-button>
     </ion-buttons>
     <ion-title><ion-text [mode]="platform">Понравилось</ion-text></ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content class="layout">
   <div class="favorite">
-    <ion-virtual-scroll [items]="resourceList" class="favorite favorite__list" *ngIf="resourceList?.length; else noFavoriteResources">
+    <ion-virtual-scroll [items]="resourceList" [trackBy]="trackById" class="favorite favorite__list" *ngIf="resourceList?.length; else noFavoriteResources">
       <ion-item-sliding *virtualItem="let resource">
         <ion-item lines="full" [mode]="platform" (click)="openResourceViewModal(resource)">
           <ion-label [mode]="platform">
@@ -22,7 +22,7 @@
           </ion-label>
         </ion-item>
         <ion-item-options side="end">
-          <ion-item-option [mode]="platform" color="danger" (click)="unlikeResource(resource)">
+          <ion-item-option [mode]="platform" color="danger" [disabled]="isLoading" (click)="unlikeResource(resource)">
             <ion-text [mode]="platform">
               Удалить
             </ion-text>

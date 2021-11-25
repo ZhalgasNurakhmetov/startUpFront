@@ -1,12 +1,12 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {Mode} from "@ionic/core";
 import {PlatformService} from "../../services/platform/platform.service";
-import {User, UserLike} from "../../core/models/user";
+import {Resource, User, UserLike} from "../../core/models/user";
 import {CurrentUserService} from "../../services/current-user/current-user.service";
 import {ModalService} from "../../services/modal/modal.service";
 import {ResourceViewModal} from "./modals/resource-view/resource-view.modal";
 import {FavoriteResourceApi} from "./api/favorite-resource.api";
-import {take, takeUntil} from "rxjs/operators";
+import {finalize, take, takeUntil} from "rxjs/operators";
 import {Subject} from "rxjs";
 
 @Component({
@@ -18,6 +18,7 @@ export class FavoriteResourcePage implements OnInit, OnDestroy {
   platform: Mode;
   resourceList: UserLike[];
   currentUser: User;
+  isLoading: boolean;
 
   private unsubscribe$ = new Subject();
 
@@ -39,20 +40,28 @@ export class FavoriteResourcePage implements OnInit, OnDestroy {
   }
 
   unlikeResource(removingResource: UserLike): void {
+    this.showLoading(true);
     this.favoriteResourceApi.unlikeResource(this.currentUser.id, removingResource.resourceId)
       .pipe(
         take(1),
+        finalize(() => {
+          this.showLoading(false);
+        })
       )
       .subscribe(() => {
-        const filteredFavoriteResourceList = this.resourceList.filter(resource => resource.resourceId !== removingResource.resourceId);
+        const index = this.resourceList.findIndex(resource => resource.resourceId === removingResource.resourceId);
+        this.resourceList.splice(index, 1);
         this.currentUserService.setCurrentUser({
           ...this.currentUser,
           favoriteResourceList: [
-            ...filteredFavoriteResourceList
+            ...this.resourceList,
           ],
         });
-        this.cd.markForCheck();
       });
+  }
+
+  trackById(index, { id }: Resource) {
+    return id;
   }
 
   private subscribeToCurrentUser(): void {
@@ -65,6 +74,11 @@ export class FavoriteResourcePage implements OnInit, OnDestroy {
         this.resourceList = user.favoriteResourceList;
         this.cd.markForCheck();
       });
+  }
+
+  private showLoading(isLoading: boolean): void {
+    this.isLoading = isLoading;
+    this.cd.markForCheck();
   }
 
   ngOnDestroy(): void {

@@ -11,9 +11,16 @@ export class ResourceListComponent {
 
   @Input() resourceList: Resource[];
   @Input() platform: Mode;
+  @Input() isLoading: boolean;
 
+  @Output() onOpenResourceViewModal = new EventEmitter<Resource>();
+  @Output() onOpenResourceEditModal = new EventEmitter<Resource>();
   @Output() onDeleteResource = new EventEmitter<string>();
 
   constructor() { }
+
+  trackById(index, { id }: Resource) {
+    return id;
+  }
 
 }

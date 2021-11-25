@@ -6,6 +6,10 @@ import {finalize, take, takeUntil} from "rxjs/operators";
 import {Subject} from "rxjs";
 import {Resource, User} from "../../core/models/user";
 import {ResourceListApi} from "./api/resource-list.api";
+import {ModalService} from "../../services/modal/modal.service";
+import {ResourceViewModal} from "./modals/resource-view/resource-view.modal";
+import {AlertController} from "@ionic/angular";
+import {ResourceEditModal} from "./modals/resource-edit/resource-edit.modal";
 
 @Component({
   templateUrl: './resource-list.page.html',
@@ -27,6 +31,8 @@ export class ResourceListPage implements OnInit, OnDestroy {
     private currentUserService: CurrentUserService,
     private cd: ChangeDetectorRef,
     private resourceListApi: ResourceListApi,
+    private modalService: ModalService,
+    private alertCtrl: AlertController,
   ) { }
 
   ngOnInit(): void {
@@ -36,6 +42,36 @@ export class ResourceListPage implements OnInit, OnDestroy {
 
   chooseResourceList(): void {
     this.isPersonal = !this.isPersonal;
+  }
+
+  openResourceViewModal(resource: Resource): void {
+    this.modalService.open(ResourceViewModal, this.platform, {resource, platform: this.platform, currentUser: this.currentUser});
+  }
+
+  openResourceEditModal(resource: Resource): void {
+    this.modalService.open(ResourceEditModal, this.platform, {resource, platform: this.platform, currentUser: this.currentUser});
+  }
+
+  async showAlert(resourceId: string, isPersonalList: boolean) {
+    const alert = await this.alertCtrl.create({
+      animated: true,
+      mode: this.platform,
+      header: 'Подтвердите',
+      message: `Вы собираетесь удалить ресурс`,
+      buttons: [
+        {
+          text: 'Отмена',
+          role: 'cancel',
+          cssClass: 'secondary',
+        }, {
+          text: 'Готово',
+          handler: () => {
+            this.deleteResource(resourceId, isPersonalList);
+          }
+        }
+      ]
+    });
+    return await alert.present();
   }
 
   deleteResource(resourceId: string, isPersonalList: boolean): void {
@@ -48,23 +84,18 @@ export class ResourceListPage implements OnInit, OnDestroy {
         })
       )
       .subscribe(deletedResource => {
-        let filteredResourceList;
         if (isPersonalList) {
-          filteredResourceList = this.personalResourceList.filter(resource  => resource.id !== deletedResource.id);
+          const index = this.personalResourceList.findIndex(resource  => resource.id === deletedResource.id);
+          this.personalResourceList.splice(index, 1);
         } else {
-          filteredResourceList = this.interestedResourceList.filter(resource  => resource.id !== deletedResource.id);
+          const index = this.interestedResourceList.findIndex(resource  => resource.id === deletedResource.id);
+          this.interestedResourceList.splice(index, 1);
         }
-        const newResourceList = isPersonalList ? [
-          ...this.interestedResourceList,
-          ...filteredResourceList,
-          ] : [
-          ...this.interestedResourceList,
-          ...filteredResourceList,
-        ];
         this.currentUserService.setCurrentUser({
           ...this.currentUser,
           resourceList: [
-            ...newResourceList,
+            ...this.personalResourceList,
+            ...this.interestedResourceList,
           ],
         });
       });

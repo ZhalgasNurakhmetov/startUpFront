@@ -8,9 +8,9 @@
 <ion-content class="layout" [scrollY]="false">
   <div class="resource">
     <div class="resource resource__owner">
-      <ion-button [mode]="platform" color="tertiary" [disabled]="isLoading">
+      <ion-button [mode]="platform" color="danger" [disabled]="isLoading" (click)="showAlert(resource?.id)" *ngIf="resource?.available; else openButton">
         <ion-text [mode]="platform">
-          Перейти на страницу владельца
+          Закрыть доступ
         </ion-text>
       </ion-button>
     </div>
@@ -20,7 +20,6 @@
       </div>
       <div class="resource-detail">
         <ul>
-          <li><ion-text [color]="resource?.available ? 'success' : 'danger'" [mode]="platform">{{resource?.available ? 'Доступен' : 'Не доступен'}}</ion-text></li>
           <li><ion-text [mode]="platform">{{resource?.title}}</ion-text></li>
           <li><ion-text [mode]="platform">{{resource?.author}}</ion-text></li>
           <li *ngIf="resource.year"><ion-text [mode]="platform">{{resource?.year}} г.</ion-text></li>
@@ -40,3 +39,12 @@
     </div>
   </div>
 </ion-content>
+
+<ng-template #openButton>
+  <ion-button [mode]="platform" color="tertiary" [disabled]="isLoading" (click)="showAlert(resource?.id)">
+    <ion-text [mode]="platform">
+      Открыть доступ
+    </ion-text>
+  </ion-button>
+</ng-template>
+

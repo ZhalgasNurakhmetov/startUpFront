@@ -20,10 +20,13 @@
   <ion-progress-bar [mode]="platform" color="tertiary" type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
   <div class="resource-list">
     <resource-list
+      *ngIf="isPersonal; else interestedResource"
       [resourceList]="personalResourceList"
       [platform]="platform"
-      *ngIf="isPersonal; else interestedResource"
-      (onDeleteResource)="deleteResource($event, true)"
+      [isLoading]="isLoading"
+      (onDeleteResource)="showAlert($event, true)"
+      (onOpenResourceViewModal)="openResourceViewModal($event)"
+      (onOpenResourceEditModal)="openResourceEditModal($event)"
     >
     </resource-list>
   </div>
@@ -33,7 +36,10 @@
   <resource-list
     [resourceList]="interestedResourceList"
     [platform]="platform"
-    (onDeleteResource)="deleteResource($event, false)"
+    [isLoading]="isLoading"
+    (onDeleteResource)="showAlert($event, false)"
+    (onOpenResourceViewModal)="openResourceViewModal($event)"
+    (onOpenResourceEditModal)="openResourceEditModal($event)"
   >
   </resource-list>
 </ng-template>

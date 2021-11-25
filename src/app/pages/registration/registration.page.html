@@ -1,7 +1,7 @@
 <ion-header [mode]="platform">
   <ion-toolbar [mode]="platform">
     <ion-buttons slot="start">
-      <ion-back-button [mode]="platform" [text]="'Назад'" [defaultHref]="'login'"></ion-back-button>
+      <ion-back-button [mode]="platform" [text]="'Назад'" [disabled]="isLoading" [defaultHref]="'login'"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -97,7 +97,7 @@
               *ngFor="let city of cityList; let i = index; trackBy: trackById"
               value="{{city}}"
             >
-              {{city}}
+              <ion-text [mode]="platform">{{city}}</ion-text>
             </ion-select-option>
           </ion-select>
         </ion-item>
@@ -133,7 +133,7 @@
             Не может состоять только из пробелов
           </ion-text>
         </div>
-        <ion-button [mode]="platform" type="submit" color="tertiary" class="registration-button ion-margin-top">
+        <ion-button [mode]="platform" type="submit" color="tertiary" [disabled]="isLoading" class="registration-button ion-margin-top">
           <ion-text [mode]="platform">
             Регистрация
           </ion-text>

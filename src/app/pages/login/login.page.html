@@ -24,7 +24,7 @@
           >
           </ion-input>
         </ion-item>
-        <ion-button type="submit" [mode]="platform" color="tertiary" class="ion-margin-top login-button">
+        <ion-button type="submit" [mode]="platform" color="tertiary" [disabled]="isLoading" class="ion-margin-top login-button">
           <ion-text [mode]="platform">
             Войти
           </ion-text>
@@ -36,7 +36,7 @@
         <ion-text [mode]="platform" (click)="navigateToPasswordRestore()">Забыли пароль?</ion-text>
       </div>
       <div class="login-actions">
-        <ion-button [mode]="platform" color="tertiary" (click)="navigateToRegistration()">
+        <ion-button [mode]="platform" color="tertiary" (click)="navigateToRegistration()" [disabled]="isLoading">
           <ion-text [mode]="platform">
             Регистрация
           </ion-text>
