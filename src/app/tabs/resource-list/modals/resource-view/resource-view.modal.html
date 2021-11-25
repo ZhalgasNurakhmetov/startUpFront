@@ -8,7 +8,7 @@
 <ion-content class="layout" [scrollY]="false">
   <div class="resource">
     <div class="resource resource__owner">
-      <ion-button [mode]="platform" color="danger" [disabled]="isLoading" (click)="showAlert(resource?.id)" *ngIf="resource?.available; else openButton">
+      <ion-button [mode]="platform" class="resource-view-button" color="danger" [disabled]="isLoading" (click)="showAlert(resource?.id)" *ngIf="resource?.available; else openButton">
         <ion-text [mode]="platform">
           Закрыть доступ
         </ion-text>
