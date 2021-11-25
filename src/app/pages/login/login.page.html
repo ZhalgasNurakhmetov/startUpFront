@@ -1,31 +1,29 @@
-<ion-content [scrollY]="false" class="layout">
+<ion-content [scrollY]="false" class="layout login-background">
   <ion-progress-bar [mode]="platform" type="indeterminate" color="tertiary" *ngIf="isLoading"></ion-progress-bar>
   <div class="login">
-    <ion-text class="login login__logo logo-text" [mode]="platform">Bookberry</ion-text>
+    <ion-text class="login login__logo login-logo-text" [mode]="platform" color="light">Bookberry</ion-text>
     <div class="login login__form">
       <form [formGroup]="form" (ngSubmit)="login()">
-        <ion-item [mode]="platform" lines="inset" class="credential">
+        <ion-item [mode]="platform" lines="inset" class="credential credential-item">
           <ion-label color="tertiary" [mode]="platform" position="floating">
             <ion-text [mode]="platform">
               Имя пользователя
             </ion-text>
           </ion-label>
-          <ion-input [mode]="platform" clear-input type="email" inputmode="email" [formControl]="form?.controls?.username"
-          >
+          <ion-input [mode]="platform" clear-input type="email" inputmode="email" [formControl]="form?.controls?.username">
           </ion-input>
         </ion-item>
-        <ion-item [mode]="platform" lines="inset" class="credential">
+        <ion-item [mode]="platform" lines="inset" class="credential credential-item">
           <ion-label color="tertiary" [mode]="platform" position="floating">
             <ion-text [mode]="platform">
               Пароль
             </ion-text>
           </ion-label>
-          <ion-input [mode]="platform" clear-input type="password" [formControl]="form?.controls?.password"
-          >
+          <ion-input [mode]="platform" clear-input type="password" [formControl]="form?.controls?.password">
           </ion-input>
         </ion-item>
-        <ion-button type="submit" [mode]="platform" color="tertiary" [disabled]="isLoading" class="ion-margin-top login-button">
-          <ion-text [mode]="platform">
+        <ion-button type="submit" [mode]="platform" color="light" [disabled]="isLoading" class="ion-margin-top login-action-button">
+          <ion-text [mode]="platform" color="tertiary">
             Войти
           </ion-text>
         </ion-button>
@@ -33,11 +31,15 @@
     </div>
     <div class="login login__actions">
       <div class="login-actions">
-        <ion-text [mode]="platform" (click)="navigateToPasswordRestore()">Забыли пароль?</ion-text>
+        <ion-button [mode]="platform" color="light" fill="outline" (click)="navigateToPasswordRestore()" class="login-action-button" [disabled]="isLoading">
+          <ion-text [mode]="platform">
+            Забыли пароль?
+          </ion-text>
+        </ion-button>
       </div>
       <div class="login-actions">
-        <ion-button [mode]="platform" color="tertiary" (click)="navigateToRegistration()" [disabled]="isLoading">
-          <ion-text [mode]="platform">
+        <ion-button [mode]="platform" color="light" (click)="navigateToRegistration()" class="login-action-button" [disabled]="isLoading">
+          <ion-text [mode]="platform" color="tertiary">
             Регистрация
           </ion-text>
         </ion-button>
