@@ -1,0 +1,37 @@
+<ion-content [scrollY]="false" class="layout">
+  <div class="resource-card">
+    <div class="resource-card resource-card__img">
+      <img src="assets/svg/add_resource.svg" width="200rem" height="200rem" alt="Изображение добавления ресурса">
+    </div>
+    <div class="resource-card resource-card__text">
+      <ion-card [mode]="platform" button="true" class="resource-card-action" (click)="navigateToResourceCreate(true)">
+        <ion-card-header [mode]="platform">
+          <ion-card-title [mode]="platform">
+            <ion-text [mode]="platform">
+              Добавить личный ресурс
+            </ion-text>
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content [mode]="platform">
+          <ion-text [mode]="platform" color="medium">
+            Расскажите, какие интересные книги, журналы или даже комиксы у Вас есть, которыми Вы готовы поделиться!
+          </ion-text>
+        </ion-card-content>
+      </ion-card>
+      <ion-card [mode]="platform" button="true" class="resource-card-action" (click)="navigateToResourceCreate(false)">
+        <ion-card-header [mode]="platform">
+          <ion-card-title [mode]="platform">
+            <ion-text [mode]="platform">
+              Добавить интересующий ресурс
+            </ion-text>
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content [mode]="platform">
+          <ion-text [mode]="platform" color="medium">
+            Дайте знать другим, с какими новыми книгами или журналами Вы бы хотели ознакомиться!
+          </ion-text>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>

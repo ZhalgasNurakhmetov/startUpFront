@@ -1,0 +1,22 @@
+.resource-card {
+  position: relative;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  &__img {
+    flex: 1;
+    justify-content: center;
+  }
+
+  &__text {
+    flex: 3;
+    justify-content: center;
+  }
+}
+
+.resource-card-action {
+  max-width: 25rem;
+}

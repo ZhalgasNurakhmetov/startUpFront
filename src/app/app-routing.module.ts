@@ -42,6 +42,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/contact/contact.module').then(m => m.ContactModule),
   },
   {
+    path: AppRoutes.resourceCreate,
+    loadChildren: () => import('./pages/resource-create/resource-create.module').then(m => m.ResourceCreateModule),
+  },
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: AppRoutes.slides,

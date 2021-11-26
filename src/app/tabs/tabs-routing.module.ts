@@ -17,6 +17,10 @@ const routes: Routes = [
         loadChildren: () => import('./resource-list/resource-list.module').then(m => m.ResourceListModule),
       },
       {
+        path: TabRoutes.addResource,
+        loadChildren: () => import('./resource-card/resource-card.module').then(m => m.ResourceCardModule),
+      },
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: TabRoutes.profile,

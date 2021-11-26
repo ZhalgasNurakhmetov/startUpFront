@@ -7,4 +7,5 @@ export const AppRoutes = {
   favorites: 'favorites',
   setting: 'setting',
   contact: 'contact',
+  resourceCreate: 'create'
 };
