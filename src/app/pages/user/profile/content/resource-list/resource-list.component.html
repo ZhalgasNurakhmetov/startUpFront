@@ -1,0 +1,37 @@
+<div class="ion-margin-top">
+  <ion-text [mode]="platform" class="ion-margin-top" color="tertiary">
+    {{isPersonal ? 'Личные' : 'Интересующие'}} ресурсы
+  </ion-text>
+  <ion-list
+    class="ion-margin-top" [mode]="platform"
+    *ngIf="resourceList?.length !== 0; else noResources"
+  >
+    <ion-item [mode]="platform"
+              *ngFor="let resource of resourceList | slice: 0: 3; let i = index; trackBy: trackById"
+              class="ion-no-padding"
+    >
+      <ion-label [mode]="platform"
+                 class="ion-margin-start"
+      >
+        <ion-text [mode]="platform"
+        >
+          {{resource?.title}} | Автор: {{resource?.author}}
+        </ion-text>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-button [mode]="platform"
+              class="ion-margin-top user-profile-action"
+              color="tertiary"
+              *ngIf="resourceList?.length > 3"
+  >
+    Больше
+  </ion-button>
+</div>
+<ng-template #noResources>
+  <div class="ion-margin-top">
+    <ion-text [mode]="platform" color="danger">
+      {{userName}} пока не добавил(а) ресурсы
+    </ion-text>
+  </div>
+</ng-template>

@@ -24,7 +24,8 @@
 </ion-header>
 <ion-content class="layout">
   <div class="contact">
-    <contact-list [contactList]="following" [platform]="platform" *ngIf="isFollowingList; else followerList"></contact-list>
+    <contact-list [contactList]="following" [platform]="platform" *ngIf="isFollowingList; else followerList"
+                  (onNavigateToUserPage)="navigateToUserPage($event)"></contact-list>
   </div>
 </ion-content>
 

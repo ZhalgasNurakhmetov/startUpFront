@@ -16,7 +16,7 @@
       </ion-item>
     </div>
       <ion-virtual-scroll class="search search__result" [items]="resourceList" [trackBy]="trackById" *ngIf="resourceList?.length > 0">
-        <ion-item lines="full" [mode]="platform" *virtualItem="let resource">
+        <ion-item lines="full" [mode]="platform" *virtualItem="let resource" (click)="navigateToUserPage(resource.ownerId)">
           <ion-label [mode]="platform" class="ion-margin-start">
             <ion-text [mode]="platform">
               {{resource?.title}} | Автор: {{resource?.author}}

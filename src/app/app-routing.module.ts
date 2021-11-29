@@ -46,6 +46,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/resource-create/resource-create.module').then(m => m.ResourceCreateModule),
   },
   {
+    path: AppRoutes.user,
+    loadChildren: () => import('./pages/user/user.module').then(m => m.UserModule),
+  },
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: AppRoutes.slides,

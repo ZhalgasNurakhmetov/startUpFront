@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {Mode} from "@ionic/core";
 import {PlatformService} from "../../services/platform/platform.service";
 import {FormControl} from "@angular/forms";
@@ -9,12 +9,15 @@ import {Resource} from "../../core/models/user";
 import {SearchFilterFormService} from "./form/search-filter.form.service";
 import {ModalService} from "../../services/modal/modal.service";
 import {FilterModal} from "./modals/filter/filter.modal";
+import {Router} from "@angular/router";
+import {AppRoutes} from "../../app.routes";
+import {UserRoutes} from "../../pages/user/user.routes";
 
 @Component({
   templateUrl: './search.page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SearchPage implements OnInit {
+export class SearchPage implements OnInit, OnDestroy {
 
   platform: Mode;
   searchControl = new FormControl('');
@@ -30,6 +33,7 @@ export class SearchPage implements OnInit {
     private cd: ChangeDetectorRef,
     private searchFilterFormService: SearchFilterFormService,
     private modalService: ModalService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -43,6 +47,10 @@ export class SearchPage implements OnInit {
 
   openSearchFilterModal(): void {
     this.modalService.open(FilterModal, this.platform, {platform: this.platform, form: this.form});
+  }
+
+  navigateToUserPage(id: string): void {
+    this.router.navigate([AppRoutes.user, UserRoutes.profile, id]);
   }
 
   private subscribeToSearchControl() {
@@ -69,6 +77,11 @@ export class SearchPage implements OnInit {
   private showLoading(value: boolean) {
     this.isLoading = value;
     this.cd.markForCheck();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }

@@ -1,11 +1,11 @@
-.profile {
+.user {
   position: relative;
   display: flex;
   height: 100vh;
   flex-direction: column;
 
   &__info {
-    flex: 2;
+    flex: 1;
     display: flex;
     flex-direction: row;
     align-items: flex-end;
@@ -19,31 +19,35 @@
     justify-content: flex-start;
   }
 
-  &__img {
-    flex: 5;
-    justify-content: flex-end;
+  &__actions {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
     align-items: center;
+    justify-content: flex-start;
+  }
+
+  &__resources {
+    flex: 6;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
   }
 }
 
-.personal-info {
-  flex: 3;
-}
-
-.profile-actions {
+.user-personal-info {
   flex: 1;
 }
 
-.profile-avatar {
+.user-profile-avatar {
   width: 6rem;
   height: 6rem;
 }
 
-.actions {
-  width: 2.5rem;
-  height: 2.5rem;
+.user-profile-contacts {
+  width: 15rem;
 }
 
-.profile-contacts {
-  width: 15rem;
+.user-profile-action {
+  width: 9rem;
 }

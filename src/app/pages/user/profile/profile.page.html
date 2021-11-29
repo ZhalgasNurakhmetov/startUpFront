@@ -1,0 +1,98 @@
+<ion-header [mode]="platform">
+  <ion-toolbar [mode]="platform">
+    <ion-buttons slot="start">
+      <ion-back-button [mode]="platform" [text]="'Назад'"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="layout">
+  <div class="user">
+    <ng-container *ngIf="user$ | async; let user">
+      <div class="user user__info">
+        <div class="user-personal-info">
+          <ion-item lines="none" [mode]="platform">
+            <ion-avatar class="profile-avatar">
+              <ion-img *ngIf="user?.photo; else defaultPhoto" [src]="user?.photo"></ion-img>
+            </ion-avatar>
+            <ion-label [mode]="platform" class="ion-margin-start">
+              <ion-text [mode]="platform">
+                {{user?.firstName}}
+              </ion-text>
+              <br>
+              <ion-text [mode]="platform">
+                {{user?.lastName}}
+              </ion-text>
+              <br>
+              <ion-text [mode]="platform">
+                {{user?.birthDate | date: 'dd.MM.yyyy'}}
+              </ion-text>
+            </ion-label>
+          </ion-item>
+          <ion-item [mode]="platform" lines="none" *ngIf="user?.about">
+            <ion-label [mode]="platform">
+              <ion-text [mode]="platform">
+                {{user?.about}}
+              </ion-text>
+            </ion-label>
+          </ion-item>
+        </div>
+      </div>
+      <div class="user user__contacts">
+        <ion-item lines="none" [mode]="platform" class="ion-margin-top profile-contacts">
+          <ion-label [mode]="platform">
+            <h2 class="ion-no-margin ion-text-center">
+              <ion-text [mode]="platform" class="ion-no-margin">
+                {{user?.following?.length}}
+              </ion-text>
+            </h2>
+            <h2 class="ion-no-margin ion-text-center">
+              <ion-text [mode]="platform" class="ion-no-margin">
+                Подписки
+              </ion-text>
+            </h2>
+          </ion-label>
+          <ion-label [mode]="platform">
+            <h2 class="ion-no-margin ion-text-center">
+              <ion-text [mode]="platform" class="ion-no-margin">
+                {{user?.followers?.length}}
+              </ion-text>
+            </h2>
+            <h2 class="ion-no-margin ion-text-center">
+              <ion-text [mode]="platform" class="ion-no-margin">
+                Подписчики
+              </ion-text>
+            </h2>
+          </ion-label>
+        </ion-item>
+      </div>
+      <div class="user user__actions">
+        <ion-button [mode]="platform" color="tertiary" fill="outline" class="user-profile-action ion-margin-start" *ngIf="!isFollowing; else unfollowButton" [disabled]="isLoading" (click)="follow(user.id)">Подписаться</ion-button>
+        <ion-button [mode]="platform" color="medium" fill="outline" class="user-profile-action" [disabled]="isLoading">Написать</ion-button>
+      </div>
+      <div class="user user__resources">
+        <profile-resource-list
+          [platform]="platform"
+          [resourceList]="personalResourceList"
+          [isPersonal]="true"
+          [userName]="user.firstName"
+        >
+        </profile-resource-list>
+        <profile-resource-list
+          [platform]="platform"
+          [resourceList]="interestedResourceList"
+          [isPersonal]="false"
+          [userName]="user.firstName"
+        >
+        </profile-resource-list>
+      </div>
+    </ng-container>
+  </div>
+</ion-content>
+
+<ng-template #defaultPhoto>
+  <img src="assets/default-profile.png" alt="Изображение профиля по умолчанию">
+</ng-template>
+
+<ng-template #unfollowButton>
+  <ion-button [mode]="platform" color="danger" fill="outline" class="user-profile-action ion-margin-start" [disabled]="isLoading" (click)="unfollow(user.id)">Отписаться</ion-button>
+</ng-template>

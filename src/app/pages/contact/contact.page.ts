@@ -5,6 +5,9 @@ import {CurrentUserService} from "../../services/current-user/current-user.servi
 import {Subject} from "rxjs";
 import {takeUntil} from "rxjs/operators";
 import {UserBase} from "../../core/models/user";
+import {Router} from "@angular/router";
+import {AppRoutes} from "../../app.routes";
+import {UserRoutes} from "../user/user.routes";
 
 @Component({
   templateUrl: './contact.page.html',
@@ -23,6 +26,7 @@ export class ContactPage implements OnInit, OnDestroy {
     private platformService: PlatformService,
     private currentUserService: CurrentUserService,
     private cd: ChangeDetectorRef,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -32,6 +36,10 @@ export class ContactPage implements OnInit, OnDestroy {
 
   chooseContactList(): void {
     this.isFollowingList = !this.isFollowingList;
+  }
+
+  navigateToUserPage(id: string): void {
+    this.router.navigate([AppRoutes.user, UserRoutes.profile, id]);
   }
 
   private subscribeToCurrentUser(): void {
