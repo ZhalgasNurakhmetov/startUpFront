@@ -1,0 +1,31 @@
+.search {
+  position: relative;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  align-items: center;
+
+  &__bar {
+    flex: 1;
+    justify-content: flex-end;
+  }
+
+  &__img {
+    flex: 9;
+    justify-content: flex-end;
+  }
+
+  &__result {
+    flex: 9;
+    justify-content: flex-start;
+  }
+
+  &__empty {
+    flex: 9;
+    justify-content: center;
+  }
+}
+
+.search-bar-size{
+  width: 23rem;
+}

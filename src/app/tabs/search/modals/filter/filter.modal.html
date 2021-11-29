@@ -1,0 +1,160 @@
+<ion-header [mode]="platform">
+  <ion-toolbar [mode]="platform">
+    <ion-buttons slot="end">
+      <ion-button [mode]="platform" (click)="dismiss()"><ion-text [mode]="platform">Закрыть</ion-text></ion-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button [mode]="platform" (click)="dropFilters()"><ion-text [mode]="platform">Сбросить</ion-text></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="layout" [scrollY]="false">
+  <div class="filter">
+    <div class="filter filter__header">
+      <ion-label [mode]="platform" class="ion-padding">
+        <ion-text [mode]="platform">Текущие фильтры</ion-text>
+      </ion-label>
+    </div>
+    <div class="filter filter__current" *ngIf="form.controls.author.value === true || form.controls.language.value !== null || form.controls.literature.value !== null || form.controls.composition.value !== null">
+      <ion-chip [mode]="platform" *ngIf="form.controls.author.value === true" class="ion-margin-start">
+        <ion-label [mode]="platform">
+          <ion-text [mode]="platform">По автору</ion-text>
+        </ion-label>
+        <ion-icon
+          name="close-circle"
+          (click)="removeFilter(form.controls.author)"
+        >
+        </ion-icon>
+      </ion-chip>
+      <ion-chip [mode]="platform" *ngIf="form.controls.language.value !== null" class="ion-margin-start">
+        <ion-label [mode]="platform">
+          <ion-text [mode]="platform">{{form.controls.language.value}}</ion-text>
+        </ion-label>
+        <ion-icon
+          name="close-circle"
+          (click)="removeFilter(form.controls.language)"
+        >
+        </ion-icon>
+      </ion-chip>
+      <ion-chip [mode]="platform" *ngIf="form.controls.literature.value !== null" class="ion-margin-start">
+        <ion-label [mode]="platform">
+          <ion-text [mode]="platform">{{form.controls.literature.value}}</ion-text>
+        </ion-label>
+        <ion-icon
+          name="close-circle"
+          (click)="removeFilter(form.controls.literature)"
+        >
+        </ion-icon>
+      </ion-chip>
+      <ion-chip [mode]="platform" *ngIf="form.controls.composition.value !== null" class="ion-margin-start">
+        <ion-label [mode]="platform">
+          <ion-text [mode]="platform">{{form.controls.composition.value}}</ion-text>
+        </ion-label>
+        <ion-icon
+          name="close-circle"
+          (click)="removeFilter(form.controls.composition)"
+        >
+        </ion-icon>
+      </ion-chip>
+    </div>
+    <div class="filter filter__form">
+      <form
+        [formGroup]="form"
+      >
+        <ion-item [mode]="platform" lines="inset" class="ion-margin-top">
+          <ion-label [mode]="platform">
+            <ion-text [mode]="platform">Поиск по автору</ion-text>
+          </ion-label>
+          <ion-toggle [mode]="platform"
+            [formControl]="form?.controls?.author"
+            [checked]="form?.controls?.author"
+          >
+          </ion-toggle>
+        </ion-item>
+        <ion-item [mode]="platform" lines="inset" class="ion-margin-top">
+          <ion-label color="tertiary" [mode]="platform" position="floating">
+            <ion-text [mode]="platform">Поиск по категории</ion-text>
+          </ion-label>
+          <ion-select [mode]="platform"
+            value="{{form?.controls?.literature?.value}}"
+            okText="Выбрать"
+            cancelText="Закрыть"
+            [formControl]="form?.controls?.literature"
+          >
+            <ion-select-option
+              *ngFor="let literature of literatureList; let i = index; trackBy: trackById"
+              value="{{literature}}"
+            >
+              <ion-text [mode]="platform">{{literature}}</ion-text>
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item [mode]="platform"
+          lines="inset"
+          class="ion-margin-top"
+        >
+          <ion-label color="tertiary" [mode]="platform" position="floating">
+            <ion-text [mode]="platform">Поиск по языку</ion-text>
+          </ion-label>
+          <ion-select [mode]="platform"
+            value="{{form?.controls?.language?.value}}"
+            okText="Выбрать"
+            cancelText="Закрыть"
+            [formControl]="form?.controls?.language"
+          >
+            <ion-select-option
+              *ngFor="let language of languageList; let i = index; trackBy: trackById"
+              value="{{language}}"
+            >
+              <ion-text [mode]="platform">{{language}}</ion-text>
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item [mode]="platform"
+          lines="inset"
+          class="ion-margin-top"
+        >
+          <ion-label
+            color="tertiary" [mode]="platform"
+            position="floating"
+          >
+            <ion-text [mode]="platform">Поиск по комплектации</ion-text>
+          </ion-label>
+          <ion-select [mode]="platform"
+            value="{{form?.controls?.composition?.value}}"
+            okText="Выбрать"
+            cancelText="Закрыть"
+            [formControl]="form?.controls?.composition"
+          >
+            <ion-select-option
+              *ngFor="let composition of compositionList; let i = index; trackBy: trackById"
+              value="{{composition}}"
+            >
+              <ion-text [mode]="platform">{{composition}}</ion-text>
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+       <!-- <ion-button
+          mode="{{devicePlatform}}"
+          class="ion-margin-top button-medium"
+          size="small"
+          type="submit"
+          fill="solid"
+          color="tertiary"
+        >
+          Применить
+        </ion-button>
+        <ion-button
+          mode="{{devicePlatform}}"
+          class="ion-margin-top button-medium"
+          size="small"
+          fill="solid"
+          color="danger"
+          (click)="dismiss()"
+        >
+          Отмена
+        </ion-button>-->
+      </form>
+    </div>
+  </div>
+</ion-content>

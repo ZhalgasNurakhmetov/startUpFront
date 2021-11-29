@@ -21,6 +21,10 @@ const routes: Routes = [
         loadChildren: () => import('./resource-card/resource-card.module').then(m => m.ResourceCardModule),
       },
       {
+        path: TabRoutes.search,
+        loadChildren: () => import('./search/search.module').then(m => m.SearchModule),
+      },
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: TabRoutes.profile,

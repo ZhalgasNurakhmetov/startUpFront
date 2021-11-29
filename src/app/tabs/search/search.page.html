@@ -1,0 +1,41 @@
+<ion-content class="layout">
+  <ion-progress-bar [mode]="platform" color="tertiary" type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
+  <div class="search">
+    <div class="search search__bar">
+      <ion-item [mode]="platform" lines="none" class="search-bar-size">
+        <ion-searchbar [mode]="platform"
+          type="text"
+          inputmode="search"
+          placeholder="Поиск"
+          [animated]="true"
+          [formControl]="searchControl"
+        >
+        </ion-searchbar>
+        <ion-icon [mode]="platform" slot="end" name="options-outline" (click)="openSearchFilterModal()">
+        </ion-icon>
+      </ion-item>
+    </div>
+      <ion-virtual-scroll class="search search__result" [items]="resourceList" [trackBy]="trackById" *ngIf="resourceList?.length > 0">
+        <ion-item lines="full" [mode]="platform" *virtualItem="let resource">
+          <ion-label [mode]="platform" class="ion-margin-start">
+            <ion-text [mode]="platform">
+              {{resource?.title}} | Автор: {{resource?.author}}
+            </ion-text>
+            <br>
+            <ion-text [mode]="platform" color="medium">
+              Владелец: {{resource?.owner?.firstName}} {{resource?.owner?.lastName}}
+            </ion-text>
+          </ion-label>
+        </ion-item>
+      </ion-virtual-scroll>
+    <div class="search search__img" *ngIf="!resourceList">
+      <img src="assets/svg/search.svg" width="300rem" height="300rem" alt="Изображение поиска">
+    </div>
+    <div class="search search__empty" *ngIf="resourceList?.length === 0">
+      <ion-text [mode]="platform" class="ion-margin-bottom">
+        Список пуст
+      </ion-text>
+      <img src="assets/svg/empty.svg" width="300rem" height="300rem" alt="Нет результатов">
+    </div>
+  </div>
+</ion-content>
