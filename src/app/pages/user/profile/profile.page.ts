@@ -7,6 +7,9 @@ import {UserService} from "../../../services/user/user.service";
 import {filter, finalize, take, takeUntil} from "rxjs/operators";
 import {CurrentUserService} from "../../../services/current-user/current-user.service";
 import {ProfileApi} from "./api/profile.api";
+import {Router} from "@angular/router";
+import {AppRoutes} from "../../../app.routes";
+import {UserRoutes} from "../user.routes";
 
 @Component({
   templateUrl: './profile.page.html',
@@ -30,6 +33,7 @@ export class ProfilePage implements OnInit, OnDestroy {
     private userService: UserService,
     private cd: ChangeDetectorRef,
     private profileApi: ProfileApi,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -38,7 +42,7 @@ export class ProfilePage implements OnInit, OnDestroy {
     this.subscribeToUser();
   }
 
-  follow(userId: string) {
+  follow(userId: string): void {
     this.showLoading(true);
     this.profileApi.follow(userId)
       .pipe(
@@ -58,7 +62,7 @@ export class ProfilePage implements OnInit, OnDestroy {
       });
   }
 
-  unfollow(userId: string) {
+  unfollow(userId: string): void {
     this.showLoading(true);
     this.profileApi.unfollow(userId)
       .pipe(
@@ -78,6 +82,10 @@ export class ProfilePage implements OnInit, OnDestroy {
         });
         this.currentUserService.setCurrentUser(currentUser);
       });
+  }
+
+  navigateToUserResourceListPage(): void {
+    this.router.navigate([AppRoutes.user, UserRoutes.resources]);
   }
 
   private subscribeToUser(): void {

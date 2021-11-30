@@ -1,0 +1,41 @@
+<ion-header [mode]="platform">
+  <ion-toolbar [mode]="platform">
+    <ion-buttons slot="start">
+      <ion-back-button [mode]="platform" [text]="'Назад'"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-segment [mode]="platform" value="PERSONAL" (ionChange)="chooseResourceList()">
+    <ion-segment-button [mode]="platform" value="PERSONAL">
+      <ion-label [mode]="platform">
+        <ion-text [mode]="platform">
+          Личные
+        </ion-text>
+      </ion-label>
+    </ion-segment-button>
+    <ion-segment-button [mode]="platform" value="INTERESTED">
+      <ion-label [mode]="platform">
+        <ion-text [mode]="platform">
+          Интересующие
+        </ion-text>
+      </ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-header>
+<ion-content class="layout">
+  <div class="resource-list">
+    <user-resource-list
+      *ngIf="isPersonal; else interestedResource"
+      [resourceList]="personalResourceList"
+      [platform]="platform"
+    >
+    </user-resource-list>
+  </div>
+</ion-content>
+
+<ng-template #interestedResource>
+  <user-resource-list
+    [resourceList]="interestedResourceList"
+    [platform]="platform"
+  >
+  </user-resource-list>
+</ng-template>

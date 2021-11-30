@@ -24,6 +24,7 @@
               class="ion-margin-top user-profile-action"
               color="tertiary"
               *ngIf="resourceList?.length > 3"
+              (click)="onNavigateToUserResourceListPage.emit()"
   >
     Больше
   </ion-button>

@@ -75,6 +75,7 @@
           [resourceList]="personalResourceList"
           [isPersonal]="true"
           [userName]="user.firstName"
+          (onNavigateToUserResourceListPage)="navigateToUserResourceListPage()"
         >
         </profile-resource-list>
         <profile-resource-list
@@ -82,6 +83,7 @@
           [resourceList]="interestedResourceList"
           [isPersonal]="false"
           [userName]="user.firstName"
+          (onNavigateToUserResourceListPage)="navigateToUserResourceListPage()"
         >
         </profile-resource-list>
       </div>

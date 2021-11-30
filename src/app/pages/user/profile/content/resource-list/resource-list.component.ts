@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, Output, EventEmitter} from '@angular/core';
 import {Resource} from "../../../../../core/models/user";
 import {Mode} from "@ionic/core";
 
@@ -13,6 +13,8 @@ export class ResourceListComponent {
   @Input() userName: string;
   @Input() isPersonal: boolean;
   @Input() resourceList: Resource[];
+
+  @Output() onNavigateToUserResourceListPage = new EventEmitter<void>();
 
   constructor() { }
 

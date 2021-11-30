@@ -8,6 +8,10 @@ const routes: Routes = [
     loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
   },
   {
+    path: UserRoutes.resources,
+    loadChildren: () => import('./resource-list/resource-list.module').then(m => m.ResourceListModule),
+  },
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: UserRoutes.profile,
