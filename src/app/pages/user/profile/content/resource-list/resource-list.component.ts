@@ -15,6 +15,7 @@ export class ResourceListComponent {
   @Input() resourceList: Resource[];
 
   @Output() onNavigateToUserResourceListPage = new EventEmitter<void>();
+  @Output() onOpenResourceViewModal = new EventEmitter<Resource>();
 
   constructor() { }
 

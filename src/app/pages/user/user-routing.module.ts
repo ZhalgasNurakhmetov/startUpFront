@@ -12,6 +12,10 @@ const routes: Routes = [
     loadChildren: () => import('./resource-list/resource-list.module').then(m => m.ResourceListModule),
   },
   {
+    path: UserRoutes.contacts,
+    loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule),
+  },
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: UserRoutes.profile,

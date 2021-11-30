@@ -1,1 +1,50 @@
-<p>resource-view works!</p>
+<ion-header [mode]="platform">
+  <ion-toolbar [mode]="platform">
+    <ion-buttons slot="end">
+      <ion-button [mode]="platform" (click)="dismiss()" [disabled]="isLoading"><ion-text [mode]="platform">Закрыть</ion-text></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="layout" [scrollY]="false">
+  <div class="resource">
+    <div class="resource resource__owner">
+      <ion-button [mode]="platform" color="tertiary" [disabled]="isLoading" (click)="addToFavorite()" *ngIf="!isFavorite; else removeButton">
+        <ion-text [mode]="platform">
+          Добавить в избранные
+        </ion-text>
+      </ion-button>
+    </div>
+    <div class="resource resource__info">
+      <div class="resource-img">
+        <img [src]="resource?.image ? resource?.image : 'assets/default-resource.png'" width="300rem" height="200rem" alt="Изображение книги">
+      </div>
+      <div class="resource-detail">
+        <ul>
+          <li><ion-text [mode]="platform">{{resource?.title}}</ion-text></li>
+          <li><ion-text [mode]="platform">{{resource?.author}}</ion-text></li>
+          <li *ngIf="resource.year"><ion-text [mode]="platform">{{resource?.year}} г.</ion-text></li>
+          <li><ion-text [mode]="platform">{{resource?.literature}}</ion-text></li>
+          <li><ion-text [mode]="platform">{{resource?.language}}</ion-text></li>
+          <li *ngIf="resource.pageCount"><ion-text [mode]="platform">{{resource?.pageCount}} стр.</ion-text></li>
+          <li *ngIf="resource.condition"><ion-text [mode]="platform">{{resource?.condition}} состояние</ion-text></li>
+          <li><ion-text [mode]="platform">{{resource?.composition}}</ion-text></li>
+          <li *ngIf="resource.cover"><ion-text [mode]="platform">{{resource?.cover}} переплет</ion-text></li>
+          <li *ngIf="resource.format"><ion-text [mode]="platform">{{resource?.format}} формат</ion-text></li>
+          <li *ngIf="resource.likes"><ion-text [mode]="platform">Нравится: {{resource?.likes}}</ion-text></li>
+        </ul>
+      </div>
+    </div>
+    <div class="resource resource__about">
+      <ion-text class="ion-margin" *ngIf="resource.description" [mode]="resource">{{resource?.description}}</ion-text>
+    </div>
+  </div>
+</ion-content>
+
+<ng-template #removeButton>
+  <ion-button [mode]="platform" color="danger" [disabled]="isLoading" (click)="removeFromFavorite()">
+    <ion-text [mode]="platform">
+      Убрать из избранных
+    </ion-text>
+  </ion-button>
+</ng-template>
+

@@ -13,6 +13,10 @@ export class CurrentUserService {
     return this.currentUser$;
   }
 
+  getCurrentUserId(): string {
+    return this.currentUser$.value.id;
+  }
+
   setCurrentUser(user: User): void {
     this.currentUser$
       .next(user);

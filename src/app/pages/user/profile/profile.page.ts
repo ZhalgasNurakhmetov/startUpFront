@@ -10,6 +10,8 @@ import {ProfileApi} from "./api/profile.api";
 import {Router} from "@angular/router";
 import {AppRoutes} from "../../../app.routes";
 import {UserRoutes} from "../user.routes";
+import {ModalService} from "../../../services/modal/modal.service";
+import {ResourceViewModal} from "../components/resource-view/resource-view.modal";
 
 @Component({
   templateUrl: './profile.page.html',
@@ -34,6 +36,7 @@ export class ProfilePage implements OnInit, OnDestroy {
     private cd: ChangeDetectorRef,
     private profileApi: ProfileApi,
     private router: Router,
+    private modalService: ModalService,
   ) { }
 
   ngOnInit(): void {
@@ -84,8 +87,16 @@ export class ProfilePage implements OnInit, OnDestroy {
       });
   }
 
+  openResourceViewModal(resource: Resource): void {
+    this.modalService.open(ResourceViewModal, this.platform, {platform: this.platform, resource});
+  }
+
   navigateToUserResourceListPage(): void {
     this.router.navigate([AppRoutes.user, UserRoutes.resources]);
+  }
+
+  navigateToUserContactListPage(): void {
+    this.router.navigate([AppRoutes.user, UserRoutes.contacts]);
   }
 
   private subscribeToUser(): void {

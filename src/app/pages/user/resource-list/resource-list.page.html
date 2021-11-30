@@ -27,6 +27,7 @@
       *ngIf="isPersonal; else interestedResource"
       [resourceList]="personalResourceList"
       [platform]="platform"
+      (onOpenResourceViewModal)="openResourceViewModal($event)"
     >
     </user-resource-list>
   </div>
@@ -36,6 +37,7 @@
   <user-resource-list
     [resourceList]="interestedResourceList"
     [platform]="platform"
+    (onOpenResourceViewModal)="openResourceViewModal($event)"
   >
   </user-resource-list>
 </ng-template>

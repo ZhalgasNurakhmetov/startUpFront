@@ -9,6 +9,7 @@
     <ion-item [mode]="platform"
               *ngFor="let resource of resourceList | slice: 0: 3; let i = index; trackBy: trackById"
               class="ion-no-padding"
+              (click)="onOpenResourceViewModal.emit(resource)"
     >
       <ion-label [mode]="platform"
                  class="ion-margin-start"

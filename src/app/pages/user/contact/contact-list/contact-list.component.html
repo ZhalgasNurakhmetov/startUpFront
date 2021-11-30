@@ -1,0 +1,25 @@
+<ion-virtual-scroll class="contact contact__list" [items]="contactList" [trackBy]="trackById" *ngIf="contactList?.length; else noContactList">
+  <ion-item lines="full" [mode]="platform" *virtualItem="let contact" (click)="onNavigateToUserPage.emit(contact.id)">
+    <ion-avatar>
+      <ion-img *ngIf="contact?.photo; else defaultPhoto" [src]="contact?.photo"></ion-img>
+    </ion-avatar>
+    <ion-label [mode]="platform" class="ion-margin-start">
+      <ion-text [mode]="platform">
+        {{contact?.firstName}} {{contact?.lastName}}
+      </ion-text>
+    </ion-label>
+  </ion-item>
+</ion-virtual-scroll>
+
+<ng-template #noContactList>
+  <div class="contact contact__empty">
+    <ion-text [mode]="platform" class="ion-margin-bottom">
+      Список пуст
+    </ion-text>
+    <img src="assets/svg/empty.svg" width="300rem" height="300rem" alt="Нет результатов">
+  </div>
+</ng-template>
+
+<ng-template #defaultPhoto>
+  <img src="assets/default-profile.png" alt="Изображение профиля по умолчанию">
+</ng-template>

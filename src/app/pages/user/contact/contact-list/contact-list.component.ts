@@ -1,9 +1,10 @@
-import {ChangeDetectionStrategy, Component, Input, Output, EventEmitter} from '@angular/core';
-import {UserBase} from "../../../core/models/user";
+import {ChangeDetectionStrategy, Component, Input, EventEmitter, Output} from "@angular/core";
+import {UserBase} from "../../../../core/models/user";
 import {Mode} from "@ionic/core";
 
+
 @Component({
-  selector: 'contact-list',
+  selector: 'user-contact-list',
   templateUrl: './contact-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

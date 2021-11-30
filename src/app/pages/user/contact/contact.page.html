@@ -3,7 +3,6 @@
     <ion-buttons slot="start">
       <ion-back-button [mode]="platform" [text]="'Назад'"></ion-back-button>
     </ion-buttons>
-    <ion-title><ion-text [mode]="platform">Контакты</ion-text></ion-title>
   </ion-toolbar>
   <ion-segment [mode]="platform" value="FOLLOWED" (ionChange)="chooseContactList()">
     <ion-segment-button [mode]="platform" value="FOLLOWED">
@@ -24,11 +23,11 @@
 </ion-header>
 <ion-content class="layout">
   <div class="contact">
-    <contact-list [contactList]="following" [platform]="platform" *ngIf="isFollowingList; else followerList"
-                  (onNavigateToUserPage)="navigateToUserPage($event)"></contact-list>
+    <user-contact-list [contactList]="following" [platform]="platform" *ngIf="isFollowingList; else followerList"
+                  (onNavigateToUserPage)="navigateToUserPage($event)"></user-contact-list>
   </div>
 </ion-content>
 
 <ng-template #followerList>
-  <contact-list [contactList]="followers" [platform]="platform" (onNavigateToUserPage)="navigateToUserPage($event)"></contact-list>
+  <user-contact-list [contactList]="followers" [platform]="platform" (onNavigateToUserPage)="navigateToUserPage($event)"></user-contact-list>
 </ng-template>

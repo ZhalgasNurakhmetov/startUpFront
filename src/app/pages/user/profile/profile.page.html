@@ -38,7 +38,7 @@
         </div>
       </div>
       <div class="user user__contacts">
-        <ion-item lines="none" [mode]="platform" class="ion-margin-top profile-contacts">
+        <ion-item lines="none" [mode]="platform" class="ion-margin-top profile-contacts" (click)="navigateToUserContactListPage()">
           <ion-label [mode]="platform">
             <h2 class="ion-no-margin ion-text-center">
               <ion-text [mode]="platform" class="ion-no-margin">
@@ -76,6 +76,7 @@
           [isPersonal]="true"
           [userName]="user.firstName"
           (onNavigateToUserResourceListPage)="navigateToUserResourceListPage()"
+          (onOpenResourceViewModal)="openResourceViewModal($event)"
         >
         </profile-resource-list>
         <profile-resource-list
@@ -84,6 +85,7 @@
           [isPersonal]="false"
           [userName]="user.firstName"
           (onNavigateToUserResourceListPage)="navigateToUserResourceListPage()"
+          (onOpenResourceViewModal)="openResourceViewModal($event)"
         >
         </profile-resource-list>
       </div>
