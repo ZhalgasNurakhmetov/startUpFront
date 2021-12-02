@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { ProfileRoutingModule } from './profile-routing.module';
 import {ProfilePage} from "./profile.page";
 import {IonicModule} from "@ionic/angular";
-import {ProfilePageGuard} from "./profile.page.guard";
 import {ProfileApi} from "./api/profile.api";
 
 
@@ -18,7 +17,6 @@ import {ProfileApi} from "./api/profile.api";
     IonicModule
   ],
   providers: [
-    ProfilePageGuard,
     ProfileApi,
   ],
 })
