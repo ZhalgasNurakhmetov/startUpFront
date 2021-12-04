@@ -1,0 +1,98 @@
+<ion-header [mode]="platform">
+  <ion-toolbar [mode]="platform">
+    <ion-buttons slot="start">
+      <ion-back-button [mode]="platform" [text]="'Назад'"></ion-back-button>
+    </ion-buttons>
+    <ion-title><ion-text [mode]="platform">{{isFirstUser ? chat?.secondUserInfo : chat?.firstUserInfo}}</ion-text></ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="layout">
+  <ion-virtual-scroll class="messages messages__list" [items]="chat?.messages" [trackBy]="trackById" *ngIf="chat?.messages?.length; else noMessages">
+    <div *virtualItem="let message" [style]="message?.userId === currentUserId ? personalStyles : contactStyles">
+      <ng-container *ngIf="message?.userId === currentUserId">
+        <ion-item [mode]="platform" lines="none" class="message message__personal">
+          <ion-label [mode]="platform">
+            <b>
+              <ion-text [mode]="platform">
+                Вы
+              </ion-text>
+            </b>
+            <br>
+            <ion-text [mode]="platform">
+              {{message?.message}}
+            </ion-text>
+            <div
+              class="message-time message-time__white"
+            >
+              <br>
+              {{ message?.dateTime | date:'dd.MM.yy HH:mm' }}
+            </div>
+          </ion-label>
+        </ion-item>
+      </ng-container>
+      <ng-container *ngIf="message?.userId !== currentUserId">
+        <ion-item lines="none" [mode]="platform" class="message message__other">
+          <ion-label [mode]="platform">
+            <b>
+              <ion-text [mode]="platform">
+                {{message?.userInfo?.firstName}}
+              </ion-text>
+            </b>
+            <br>
+            <ion-text [mode]="platform">
+              {{message?.message}}
+            </ion-text>
+            <div
+              class="message-time message-time__black"
+            >
+              <br>
+              {{ message?.dateTime | date:'dd.MM.yy HH:mm' }}
+            </div>
+          </ion-label>
+        </ion-item>
+      </ng-container>
+    </div>
+  </ion-virtual-scroll>
+</ion-content>
+<ion-footer [mode]="platform">
+  <ion-toolbar [mode]="platform">
+    <ion-item
+      lines="none" [mode]="platform"
+    >
+      <ion-textarea [mode]="platform"
+        placeholder="Сообщение"
+        autocapitalize="sentences"
+        inputmode="text"
+        spellcheck
+                    [formControl]="form.controls.message"
+      >
+      </ion-textarea>
+    </ion-item>
+    <ion-buttons
+      slot="end"
+      class="ion-margin-start"
+    >
+      <button
+        class="no-background"
+        type="button"
+        (click)="sendMessage()"
+      >
+        <ion-icon [mode]="platform"
+          size="large"
+          name="send"
+          color="tertiary"
+        >
+        </ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
+
+<ng-template #noMessages>
+  <div class="contact contact__empty">
+    <ion-text [mode]="platform" class="ion-margin-bottom">
+      Начните переписку
+    </ion-text>
+    <img src="assets/svg/no_messages_in_chat.svg" width="300rem" height="300rem" alt="Нет результатов">
+  </div>
+</ng-template>

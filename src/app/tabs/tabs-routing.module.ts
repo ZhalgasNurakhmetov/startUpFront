@@ -23,6 +23,10 @@ const routes: Routes = [
         loadChildren: () => import('./resource-card/resource-card.module').then(m => m.ResourceCardModule),
       },
       {
+        path: TabRoutes.chat,
+        loadChildren: () => import('./chat/chat.module').then(m => m.ChatModule),
+      },
+      {
         path: TabRoutes.search,
         loadChildren: () => import('./search/search.module').then(m => m.SearchModule),
       },

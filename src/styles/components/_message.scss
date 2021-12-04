@@ -1,0 +1,57 @@
+.messages {
+  position: relative;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+
+  &__list {
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__empty {
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+  }
+
+}
+
+.message {
+  width: 15rem;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 4px;
+  white-space: pre-wrap;
+  --background: none;
+
+  &__personal {
+    background: #2d42ff;
+    color: #fff;
+  }
+
+  &__other {
+    background: #ececec;
+    color: #0d0d0d;
+  }
+}
+
+.no-background {
+  background: none;
+}
+
+.message-container {
+  width: 15rem;
+  position: absolute;
+
+  &__personal {
+    //right: 0;
+    left: auto !important;
+  }
+
+  &__contact {
+    //right: auto !important;
+    left: 0 !important;
+  }
+}

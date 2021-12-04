@@ -10,6 +10,16 @@
     <ion-tab-button tab="add-resource" [mode]="platform">
       <ion-icon [mode]="platform" name="add"></ion-icon>
     </ion-tab-button>
+    <ion-tab-button [mode]="platform" tab="chat">
+      <ion-icon [mode]="platform" name="chatbubbles"></ion-icon>
+<!--      <ion-badge
+        *ngIf="totalUnreadMessages"
+        mode="{{devicePlatform}}"
+        color="danger"
+      >
+        {{totalUnreadMessages}}
+      </ion-badge>-->
+    </ion-tab-button>
     <ion-tab-button [mode]="platform" tab="search">
       <ion-icon [mode]="platform" name="search" class="tab-icon"></ion-icon>
     </ion-tab-button>

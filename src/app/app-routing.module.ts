@@ -50,6 +50,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/user/user.module').then(m => m.UserModule),
   },
   {
+    path: AppRoutes.personalChat,
+    loadChildren: () => import('./pages/personal-chat/personal-chat.module').then(m => m.PersonalChatModule),
+  },
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: AppRoutes.slides,

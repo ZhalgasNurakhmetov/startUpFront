@@ -8,5 +8,6 @@ export const AppRoutes = {
   setting: 'setting',
   contact: 'contact',
   resourceCreate: 'create',
-  user: 'user'
+  user: 'user',
+  personalChat: 'personal-chat'
 };

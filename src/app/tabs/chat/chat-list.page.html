@@ -1,0 +1,41 @@
+<ion-content class="layout">
+  <div class="chat">
+    <ion-virtual-scroll class="contact contact__list" [items]="chatList" [trackBy]="trackById" *ngIf="chatList?.length; else noChatList">
+      <ion-item lines="full" [mode]="platform" *virtualItem="let chat" (click)="setCurrentChat(chat)">
+        <ion-avatar>
+          <ion-img *ngIf="chat?.firstUserId === currentUserId ? chat?.secondUserPhoto : chat?.firstUserPhoto; else defaultPhoto" [src]="chat?.firstUserId === currentUserId ? chat?.secondUserPhoto : chat?.firstUserPhoto"></ion-img>
+        </ion-avatar>
+        <ion-label [mode]="platform" class="ion-margin-start">
+          <b>
+            <ion-text [mode]="platform">
+              {{ chat?.firstUserId === currentUserId ? chat?.secondUserInfo : chat?.firstUserInfo}}
+            </ion-text>
+          </b>
+          <br>
+          <ion-text [mode]="platform">
+            {{chat.messages[chat.messages?.length-1]?.userId === currentUserId ? 'Вы' : chat.messages[chat.messages?.length-1]?.userInfo?.firstName}}: {{chat.messages[chat.messages?.length-1]?.message}}
+          </ion-text>
+          <div
+            class="message-time"
+          >
+            <br>
+            {{ chat.messages[chat.messages?.length-1]?.dateTime | date:'dd.MM.yy HH:mm' }}
+          </div>
+        </ion-label>
+      </ion-item>
+    </ion-virtual-scroll>
+  </div>
+</ion-content>
+
+<ng-template #noChatList>
+  <div class="contact contact__empty">
+    <ion-text [mode]="platform" class="ion-margin-bottom">
+      Нет переписок
+    </ion-text>
+    <img src="assets/svg/empty.svg" width="300rem" height="300rem" alt="Нет результатов">
+  </div>
+</ng-template>
+
+<ng-template #defaultPhoto>
+  <img src="assets/default-profile.png" alt="Изображение профиля по умолчанию">
+</ng-template>

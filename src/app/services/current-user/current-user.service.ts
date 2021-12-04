@@ -21,4 +21,8 @@ export class CurrentUserService {
     this.currentUser$
       .next(user);
   }
+
+  getCurrentUserValue(): User {
+    return this.currentUser$.value;
+  }
 }
