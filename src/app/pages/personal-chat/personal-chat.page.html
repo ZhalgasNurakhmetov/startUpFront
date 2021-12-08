@@ -3,53 +3,59 @@
     <ion-buttons slot="start">
       <ion-back-button [mode]="platform" [text]="'Назад'"></ion-back-button>
     </ion-buttons>
-    <ion-title><ion-text [mode]="platform">{{isFirstUser ? chat?.secondUserInfo : chat?.firstUserInfo}}</ion-text></ion-title>
+    <ion-title (click)="navigateToContactPage()"><ion-text [mode]="platform">{{isFirstUser ? chat?.secondUserInfo : chat?.firstUserInfo}}</ion-text></ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content class="layout">
   <ion-virtual-scroll class="messages messages__list" [items]="chat?.messages" [trackBy]="trackById" *ngIf="chat?.messages?.length; else noMessages">
     <div *virtualItem="let message" [style]="message?.userId === currentUserId ? personalStyles : contactStyles">
       <ng-container *ngIf="message?.userId === currentUserId">
-        <ion-item [mode]="platform" lines="none" class="message message__personal">
-          <ion-label [mode]="platform">
-            <b>
-              <ion-text [mode]="platform">
-                Вы
-              </ion-text>
-            </b>
-            <br>
-            <ion-text [mode]="platform">
-              {{message?.message}}
-            </ion-text>
-            <div
-              class="message-time message-time__white"
-            >
+        <div class="message message__personal">
+          <div>
+            <ion-label [mode]="platform">
+              <b>
+                <ion-text [mode]="platform">
+                  Вы
+                </ion-text>
+              </b>
               <br>
-              {{ message?.dateTime | date:'dd.MM.yy HH:mm' }}
-            </div>
-          </ion-label>
-        </ion-item>
+              <ion-text [mode]="platform">
+                {{message?.message}}
+              </ion-text>
+
+            </ion-label>
+          </div>
+          <div
+            class="message-time message-time__white"
+          >
+            <br>
+            {{ message?.dateTime | date:'dd.MM.yy HH:mm' }}
+          </div>
+        </div>
       </ng-container>
       <ng-container *ngIf="message?.userId !== currentUserId">
-        <ion-item lines="none" [mode]="platform" class="message message__other">
-          <ion-label [mode]="platform">
-            <b>
-              <ion-text [mode]="platform">
-                {{message?.userInfo?.firstName}}
-              </ion-text>
-            </b>
-            <br>
-            <ion-text [mode]="platform">
-              {{message?.message}}
-            </ion-text>
-            <div
-              class="message-time message-time__black"
-            >
+        <div class="message message__other">
+          <div>
+            <ion-label [mode]="platform">
+              <b>
+                <ion-text [mode]="platform">
+                  {{message?.userInfo?.firstName}}
+                </ion-text>
+              </b>
               <br>
-              {{ message?.dateTime | date:'dd.MM.yy HH:mm' }}
-            </div>
-          </ion-label>
-        </ion-item>
+              <ion-text [mode]="platform">
+                {{message?.message}}
+              </ion-text>
+
+            </ion-label>
+          </div>
+          <div
+            class="message-time message-time__black"
+          >
+            <br>
+            {{ message?.dateTime | date:'dd.MM.yy HH:mm' }}
+          </div>
+        </div>
       </ng-container>
     </div>
   </ion-virtual-scroll>

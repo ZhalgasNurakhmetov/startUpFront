@@ -7,6 +7,7 @@ import {AppRoutes} from "../../app.routes";
 import {ModalService} from "../../services/modal/modal.service";
 import {ProfileEditModal} from "./modals/profile-edit/profile-edit.modal";
 import {PasswordChangeModal} from "./modals/password-change/password-change.modal";
+import {AlertController} from "@ionic/angular";
 
 @Component({
   templateUrl: './setting.page.html',
@@ -21,6 +22,7 @@ export class SettingPage implements OnInit {
     private authService: AuthService,
     private modalService: ModalService,
     private router: Router,
+    private alertCtrl: AlertController,
   ) { }
 
   ngOnInit(): void {
@@ -33,6 +35,28 @@ export class SettingPage implements OnInit {
 
   openPasswordChangeModal(): void {
     this.modalService.open(PasswordChangeModal, this.platform, {platform: this.platform});
+  }
+
+  async showAlert() {
+    const alert = await this.alertCtrl.create({
+      animated: true,
+      mode: this.platform,
+      header: 'Подтвердите',
+      message: `Вы собираетесь выйти`,
+      buttons: [
+        {
+          text: 'Отмена',
+          role: 'cancel',
+          cssClass: 'secondary',
+        }, {
+          text: 'Готово',
+          handler: () => {
+            this.logout();
+          }
+        }
+      ]
+    });
+    return await alert.present();
   }
 
   logout(): void {

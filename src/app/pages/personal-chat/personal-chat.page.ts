@@ -16,6 +16,9 @@ import {CurrentUserService} from '../../services/current-user/current-user.servi
 import {MessageFormService} from './form/message.form.service';
 import {WebSocketService} from '../../services/webSocket/web-socket.service';
 import {IonContent} from '@ionic/angular';
+import {Router} from "@angular/router";
+import {AppRoutes} from "../../app.routes";
+import {UserRoutes} from "../user/user.routes";
 
 @Component({
   templateUrl: './personal-chat.page.html',
@@ -23,9 +26,8 @@ import {IonContent} from '@ionic/angular';
 })
 export class PersonalChatPage implements OnInit, AfterViewInit, OnDestroy {
 
-  // TODO message list resets (reloads) on every new message
-  // TODO message list does not scroll to bottom
-  // TODO too long messages gets truncated
+  // TODO fix message list resets (reloads) on every new message
+  // TODO fix message list does not scroll to bottom
 
   @ViewChild(IonContent, {read: IonContent, static: false}) content: IonContent;
 
@@ -54,6 +56,7 @@ export class PersonalChatPage implements OnInit, AfterViewInit, OnDestroy {
     private cd: ChangeDetectorRef,
     private messageFormService: MessageFormService,
     private webSocketService: WebSocketService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -89,6 +92,11 @@ export class PersonalChatPage implements OnInit, AfterViewInit, OnDestroy {
 
   scrollDown(): void {
 
+  }
+
+  navigateToContactPage(): void {
+    const id = this.isFirstUser ? this.chat?.secondUserId : this.chat?.firstUserId;
+    this.router.navigate([AppRoutes.user, UserRoutes.profile, id]);
   }
 
   private subscribeToMessage(): void {
