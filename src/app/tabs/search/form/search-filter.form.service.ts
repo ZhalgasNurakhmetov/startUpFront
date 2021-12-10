@@ -3,7 +3,7 @@ import {typedFormGroup, TypedFormGroup} from "ngx-forms-typed";
 import {FormControl} from "@angular/forms";
 
 export interface SearchFilterFormModel {
-  author: string;
+  author: boolean;
   literature: string;
   language: string;
   composition: string;
