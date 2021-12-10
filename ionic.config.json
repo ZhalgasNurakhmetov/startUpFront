@@ -1,5 +1,6 @@
 {
   "name": "startUpFront",
+  "id": "io.ionic.starter",
   "integrations": {
     "capacitor": {}
   },

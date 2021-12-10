@@ -13,6 +13,8 @@ import {Router} from '@angular/router';
 import {AppRoutes} from '../app.routes';
 import {SingleTimeService} from '../services/single-time/single-time.service';
 import {Mode} from "@ionic/core";
+import {SplashScreen} from "@capacitor/splash-screen";
+import {StatusBar} from "@capacitor/status-bar";
 
 
 SwiperCore.use([Pagination]);
@@ -64,6 +66,8 @@ export class SlidePage implements OnInit, AfterContentChecked {
 
   ngOnInit(): void {
     this.platform = this.platformService.getPlatform();
+    StatusBar.hide();
+    SplashScreen.hide();
   }
 
   ngAfterContentChecked(): void {

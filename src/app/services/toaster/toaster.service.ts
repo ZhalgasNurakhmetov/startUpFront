@@ -43,4 +43,8 @@ export class ToasterService {
     await toast.present();
   }
 
+  dismiss(): void {
+    this.toastCtrl.dismiss();
+  }
+
 }

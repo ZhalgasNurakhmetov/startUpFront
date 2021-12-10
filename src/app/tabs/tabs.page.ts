@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {Mode} from "@ionic/core";
 import {PlatformService} from "../services/platform/platform.service";
 import {TabsApi} from "./api/tabs.api";
@@ -8,17 +8,21 @@ import {Chat, Message} from "../core/models/chat";
 import {WebSocketService} from "../services/webSocket/web-socket.service";
 import {CurrentUserService} from "../services/current-user/current-user.service";
 import {User} from "../core/models/user";
+import {Network} from "@capacitor/network";
+import {StatusBar} from "@capacitor/status-bar";
+import {SplashScreen} from "@capacitor/splash-screen";
 
 @Component({
   templateUrl: 'tabs.page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TabsPage implements OnInit{
+export class TabsPage implements OnInit, OnDestroy{
 
   // TODO unred message count badges
 
   platform: Mode;
   currentUser: User;
+  isConnected = true;
 
   constructor(
     private platformService: PlatformService,
@@ -26,13 +30,24 @@ export class TabsPage implements OnInit{
     private chatService: ChatService,
     private webSocketService: WebSocketService,
     private currentUserService: CurrentUserService,
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
     this.platform = this.platformService.getPlatform();
+    this.currentUser = this.currentUserService.getCurrentUserValue();
     this.getChatList();
     this.subscribeToMessage();
-    this.currentUser = this.currentUserService.getCurrentUserValue();
+    this.checkNetworkConnection();
+    StatusBar.hide();
+    SplashScreen.hide();
+  }
+
+  checkNetworkConnection() {
+    Network.addListener('networkStatusChange', status => {
+      this.isConnected = status.connected;
+      this.cd.markForCheck();
+    });
   }
 
   private getChatList(): void {
@@ -71,6 +86,10 @@ export class TabsPage implements OnInit{
       secondUserPhoto: this.currentUser.photo,
       messages: [message]
     };
+  }
+
+  ngOnDestroy(): void {
+    Network.removeAllListeners();
   }
 
 }

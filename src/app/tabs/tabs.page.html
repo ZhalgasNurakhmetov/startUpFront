@@ -1,5 +1,12 @@
 <ion-tabs>
-
+  <div
+    *ngIf="!isConnected"
+    class="ion-text-center danger-background"
+  >
+    <ion-text [mode]="platform" color="light">
+      Связь потеряна
+    </ion-text>
+  </div>
   <ion-tab-bar color="tertiary" [mode]="platform" slot="bottom">
     <ion-tab-button tab="profile" [mode]="platform">
       <ion-icon [mode]="platform" name="person"></ion-icon>

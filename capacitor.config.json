@@ -1,6 +1,15 @@
 {
-	"appId": "io.ionic.starter",
+	"appId": "com.example.app",
 	"appName": "startUpFront",
 	"webDir": "www",
-	"bundledWebRuntime": false
+	"bundledWebRuntime": false,
+  "plugins": {
+    "SplashScreen": {
+      "launchAutoHide": false,
+      "splashFullScreen": true,
+      "showSpinner": true,
+      "spinnerColor": "#0000CC",
+      "splashImmersive": true
+    }
+  }
 }

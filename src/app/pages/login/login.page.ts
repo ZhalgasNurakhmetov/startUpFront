@@ -7,6 +7,8 @@ import {forEachControlIn} from "ngx-forms-typed";
 import {finalize, take} from "rxjs/operators";
 import {Router} from "@angular/router";
 import {AppRoutes} from "../../app.routes";
+import {SplashScreen} from "@capacitor/splash-screen";
+import {StatusBar} from "@capacitor/status-bar";
 
 @Component({
   templateUrl: './login.page.html',
@@ -28,6 +30,8 @@ export class LoginPage implements OnInit{
 
   ngOnInit(): void {
     this.platform = this.platformService.getPlatform();
+    StatusBar.hide();
+    SplashScreen.hide();
   }
 
   login(): void {
