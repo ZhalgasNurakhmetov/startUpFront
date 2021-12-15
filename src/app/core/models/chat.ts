@@ -6,8 +6,8 @@ export interface Chat {
   secondUserId: string;
   firstUserInfo: string;
   secondUserInfo: string;
-  firstUserPhoto: string;
-  secondUserPhoto: string;
+  firstUserPhotoPath: string;
+  secondUserPhotoPath: string;
   messages: Message[];
 }
 

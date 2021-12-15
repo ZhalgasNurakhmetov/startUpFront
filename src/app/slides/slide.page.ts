@@ -66,8 +66,8 @@ export class SlidePage implements OnInit, AfterContentChecked {
 
   ngOnInit(): void {
     this.platform = this.platformService.getPlatform();
-    StatusBar.hide();
-    SplashScreen.hide();
+    // StatusBar.hide();
+    // SplashScreen.hide();
   }
 
   ngAfterContentChecked(): void {

@@ -7,6 +7,7 @@ import {ProfileApi} from "./api/profile.api";
 import {ProfilePageGuard} from "./profile.guard";
 import {IonicModule} from "@ionic/angular";
 import {ResourceListComponent} from "./content/resource-list/resource-list.component";
+import {ChatCreateFormService} from "./form/chat-create.form.service";
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import {ResourceListComponent} from "./content/resource-list/resource-list.compo
   providers: [
     ProfileApi,
     ProfilePageGuard,
+    ChatCreateFormService,
   ]
 })
 export class ProfileModule { }

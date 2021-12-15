@@ -14,4 +14,8 @@ export class ProfileApi {
   getCurrentUser(): Observable<User> {
     return this.http.get<User>(`${environment.apiUrl}/api/current_user/me`);
   }
+
+  uploadPhoto(formData: FormData): Observable<User> {
+    return this.http.post<User>(`${environment.apiUrl}/api/photo/upload`, formData);
+  }
 }

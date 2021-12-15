@@ -3,7 +3,7 @@
     <ion-virtual-scroll class="contact contact__list" [items]="chatList" [trackBy]="trackById" *ngIf="chatList?.length; else noChatList">
       <ion-item lines="full" [mode]="platform" *virtualItem="let chat" (click)="setCurrentChat(chat)">
         <ion-avatar>
-          <ion-img *ngIf="chat?.firstUserId === currentUserId ? chat?.secondUserPhoto : chat?.firstUserPhoto; else defaultPhoto" [src]="chat?.firstUserId === currentUserId ? chat?.secondUserPhoto : chat?.firstUserPhoto"></ion-img>
+          <ion-img *ngIf="chat?.firstUserId === currentUserId ? chat?.secondUserPhotoPath : chat?.firstUserPhotoPath; else defaultPhoto" [src]="apiUrl + (chat?.firstUserId === currentUserId ? chat?.secondUserPhotoPath : chat?.firstUserPhotoPath)"></ion-img>
         </ion-avatar>
         <ion-label [mode]="platform" class="ion-margin-start">
           <b>
@@ -12,11 +12,12 @@
             </ion-text>
           </b>
           <br>
-          <ion-text [mode]="platform">
+          <ion-text [mode]="platform" *ngIf="chat?.messages?.length > 0">
             {{chat.messages[chat.messages?.length-1]?.userId === currentUserId ? 'Вы' : chat.messages[chat.messages?.length-1]?.userInfo?.firstName}}: {{chat.messages[chat.messages?.length-1]?.message}}
           </ion-text>
           <div
             class="message-time"
+            *ngIf="chat?.messages?.length > 0"
           >
             <br>
             {{ chat.messages[chat.messages?.length-1]?.dateTime | date:'dd.MM.yy HH:mm' }}

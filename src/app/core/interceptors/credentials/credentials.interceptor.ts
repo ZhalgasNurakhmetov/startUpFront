@@ -21,7 +21,6 @@ export class CredentialsInterceptor implements HttpInterceptor {
             request = request.clone({
               headers: request.headers
                 .set('Authorization', `Bearer ${token}`)
-                .set('Content-Type', 'application/json')
             });
           }
           return next.handle(request);

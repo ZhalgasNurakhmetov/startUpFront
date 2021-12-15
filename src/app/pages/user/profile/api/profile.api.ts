@@ -3,6 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {User} from "../../../../core/models/user";
 import {environment} from "../../../../../environments/environment";
+import {Chat} from "../../../../core/models/chat";
+import {ChatCreateFormModel} from "../form/chat-create.form.service";
 
 @Injectable()
 export class ProfileApi {
@@ -21,5 +23,9 @@ export class ProfileApi {
 
   unfollow(userId: string): Observable<User> {
     return this.http.post<User>(`${environment.apiUrl}/api/user/unfollow/${userId}`, null);
+  }
+
+  startChat(userId: string, chat: ChatCreateFormModel): Observable<Chat> {
+    return this.http.post<Chat>(`${environment.apiUrl}/api/chat/create/with/${userId}`, chat);
   }
 }

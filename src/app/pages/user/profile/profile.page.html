@@ -6,13 +6,13 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="layout">
-  <div class="user">
+  <div class="user ion-margin-top">
     <ng-container *ngIf="user$ | async; let user">
       <div class="user user__info">
         <div class="user-personal-info">
           <ion-item lines="none" [mode]="platform">
             <ion-avatar class="profile-avatar">
-              <ion-img *ngIf="user?.photo; else defaultPhoto" [src]="user?.photo"></ion-img>
+              <ion-img *ngIf="user?.photoPath; else defaultPhoto" [src]="apiUrl + user?.photoPath"></ion-img>
             </ion-avatar>
             <ion-label [mode]="platform" class="ion-margin-start">
               <ion-text [mode]="platform">
@@ -67,7 +67,7 @@
       </div>
       <div class="user user__actions">
         <ion-button [mode]="platform" color="tertiary" fill="outline" class="user-profile-action ion-margin-start" *ngIf="!isFollowing; else unfollowButton" [disabled]="isLoading" (click)="follow(user.id)">Подписаться</ion-button>
-        <ion-button [mode]="platform" color="medium" fill="outline" class="user-profile-action" [disabled]="isLoading">Написать</ion-button>
+        <ion-button [mode]="platform" color="medium" fill="outline" class="user-profile-action" [disabled]="isLoading" (click)="chat()">Написать</ion-button>
       </div>
       <div class="user user__resources">
         <profile-resource-list

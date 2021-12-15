@@ -14,8 +14,8 @@
       <div class="profile profile__info">
         <div class="personal-info">
           <ion-item lines="none" [mode]="platform">
-            <ion-avatar class="profile-avatar">
-              <ion-img *ngIf="currentUser?.photo; else defaultPhoto" [src]="currentUser?.photo"></ion-img>
+            <ion-avatar class="profile-avatar" (click)="uploadPhoto(currentUser?.id)">
+              <ion-img *ngIf="currentUser?.photoPath; else defaultPhoto" [src]="apiUrl + currentUser?.photoPath"></ion-img>
             </ion-avatar>
             <ion-label [mode]="platform" class="ion-margin-start">
                 <ion-text [mode]="platform">

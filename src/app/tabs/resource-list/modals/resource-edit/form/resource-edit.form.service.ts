@@ -6,7 +6,7 @@ export interface ResourceEditFormModel {
   personal: boolean;
   title: string;
   author: string;
-  image: string;
+  imagePath: string;
   year: string;
   pageCount: string;
   literature: string;
@@ -24,7 +24,7 @@ export class ResourceEditFormService {
   initResourceEditForm(): TypedFormGroup<ResourceEditFormModel> {
     return typedFormGroup({
       personal: new FormControl(null),
-      image: new FormControl(null),
+      imagePath: new FormControl(null),
       title: new FormControl(null, [Validators.required, Validators.pattern('^(?!\\s+$).*')]),
       author: new FormControl(null, [Validators.required, Validators.pattern('^(?!\\s+$).*')]),
       year: new FormControl(null, [Validators.maxLength(4), Validators.pattern('^[0-9]*$')]),

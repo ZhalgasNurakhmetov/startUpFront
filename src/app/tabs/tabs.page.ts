@@ -39,8 +39,8 @@ export class TabsPage implements OnInit, OnDestroy{
     this.getChatList();
     this.subscribeToMessage();
     this.checkNetworkConnection();
-    StatusBar.hide();
-    SplashScreen.hide();
+    // StatusBar.hide();
+    // SplashScreen.hide();
   }
 
   checkNetworkConnection() {
@@ -82,8 +82,8 @@ export class TabsPage implements OnInit, OnDestroy{
       secondUserId: this.currentUser.id,
       firstUserInfo: `${message.userInfo.firstName} ${message.userInfo.lastName}`,
       secondUserInfo: `${this.currentUser.firstName} ${this.currentUser.lastName}`,
-      firstUserPhoto: message.userInfo.photo,
-      secondUserPhoto: this.currentUser.photo,
+      firstUserPhotoPath: message.userInfo.photoPath,
+      secondUserPhotoPath: this.currentUser.photoPath,
       messages: [message]
     };
   }

@@ -30,8 +30,8 @@ export class LoginPage implements OnInit{
 
   ngOnInit(): void {
     this.platform = this.platformService.getPlatform();
-    StatusBar.hide();
-    SplashScreen.hide();
+    // StatusBar.hide();
+    // SplashScreen.hide();
   }
 
   login(): void {

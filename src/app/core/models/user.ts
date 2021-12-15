@@ -5,7 +5,7 @@ export interface UserBase {
   birthDate: string;
   username: string;
   city: string;
-  photo: string;
+  photoPath: string;
   about: string;
 }
 
@@ -18,7 +18,7 @@ export interface User extends UserBase{
 
 export interface Resource {
   id: string;
-  image: string;
+  imagePath: string;
   available: boolean;
   personal: boolean;
   title: string;

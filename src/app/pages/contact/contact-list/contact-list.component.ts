@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input, Output, EventEmitter} from '@angular/core';
 import {UserBase} from "../../../core/models/user";
 import {Mode} from "@ionic/core";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'contact-list',
@@ -13,6 +14,8 @@ export class ContactListComponent {
   @Input() platform: Mode;
 
   @Output() onNavigateToUserPage = new EventEmitter<string>();
+
+  apiUrl = environment.apiUrl;
 
   constructor() { }
 

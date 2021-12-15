@@ -8,6 +8,7 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {AppRoutes} from '../../app.routes';
+import {environment} from "../../../environments/environment";
 
 @Component({
   templateUrl: './chat-list.page.html',
@@ -18,6 +19,8 @@ export class ChatListPage implements OnInit, OnDestroy {
   platform: Mode;
   chatList: Chat[];
   currentUserId: string;
+
+  apiUrl = environment.apiUrl;
 
   private unsubscribe$ = new Subject();
 

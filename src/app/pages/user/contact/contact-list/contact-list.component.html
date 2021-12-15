@@ -1,7 +1,7 @@
 <ion-virtual-scroll class="contact contact__list" [items]="contactList" [trackBy]="trackById" *ngIf="contactList?.length; else noContactList">
   <ion-item lines="full" [mode]="platform" *virtualItem="let contact" (click)="onNavigateToUserPage.emit(contact.id)">
     <ion-avatar>
-      <ion-img *ngIf="contact?.photo; else defaultPhoto" [src]="contact?.photo"></ion-img>
+      <ion-img *ngIf="contact?.photoPath; else defaultPhoto" [src]="apiUrl + contact?.photoPath"></ion-img>
     </ion-avatar>
     <ion-label [mode]="platform" class="ion-margin-start">
       <ion-text [mode]="platform">
