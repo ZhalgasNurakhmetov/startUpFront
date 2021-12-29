@@ -5,6 +5,7 @@ import {ModalController} from "@ionic/angular";
 import {Router} from "@angular/router";
 import {AppRoutes} from "../../../../app.routes";
 import {UserRoutes} from "../../../user/user.routes";
+import {environment} from "../../../../../environments/environment";
 
 @Component({
   templateUrl: './resource-view.modal.html',
@@ -14,7 +15,9 @@ export class ResourceViewModal {
 
   @Input() platform: Mode;
   @Input() resource: Resource;
+
   isLoading: boolean;
+  apiUrl = environment.apiUrl;
 
   constructor(
     private modalCtrl: ModalController,

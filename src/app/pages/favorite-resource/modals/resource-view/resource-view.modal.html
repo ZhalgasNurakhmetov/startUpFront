@@ -16,7 +16,7 @@
     </div>
     <div class="resource resource__info">
       <div class="resource-img">
-        <img [src]="resource?.imagePath ? resource?.imagePath : 'assets/default-resource.png'" width="300rem" height="200rem" alt="Изображение книги">
+        <img [src]="resource?.imagePath ? apiUrl + resource?.imagePath : 'assets/default-resource.png'" width="400rem" height="300rem" alt="Изображение книги">
       </div>
       <div class="resource-detail">
         <ul>
@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="resource resource__about">
-      <ion-text class="ion-margin" *ngIf="resource.description" [mode]="resource">{{resource?.description}}</ion-text>
+      <ion-text class="ion-margin" *ngIf="resource.description" [mode]="platform">{{resource?.description}}</ion-text>
     </div>
   </div>
 </ion-content>

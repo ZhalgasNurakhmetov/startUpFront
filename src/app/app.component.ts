@@ -3,6 +3,7 @@ import {Platform} from '@ionic/angular';
 import {PlatformService} from "./services/platform/platform.service";
 import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
+import {NotificationService} from "./services/notification/notification.service";
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ export class AppComponent implements OnDestroy{
     private platformService: PlatformService,
     private ngZone: NgZone,
     private router: Router,
+    private notificationService: NotificationService,
   ) {
     this.initializeApp();
   }
@@ -41,6 +43,13 @@ export class AppComponent implements OnDestroy{
             this.router.navigate([path]);
           });
       }));
+  }
+
+  registerNotificationAction() {
+    this.notificationService.initializeNotificationChannels()
+      .then(() => {
+        this.notificationService.registerChatAction();
+      });
   }
 
   ngOnDestroy(): void {

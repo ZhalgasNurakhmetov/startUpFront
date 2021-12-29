@@ -27,6 +27,7 @@
       (onDeleteResource)="showAlert($event, true)"
       (onOpenResourceViewModal)="openResourceViewModal($event)"
       (onOpenResourceEditModal)="openResourceEditModal($event)"
+      (onUploadImage)="uploadImage($event)"
     >
     </resource-list>
   </div>
@@ -40,6 +41,7 @@
     (onDeleteResource)="showAlert($event, false)"
     (onOpenResourceViewModal)="openResourceViewModal($event)"
     (onOpenResourceEditModal)="openResourceEditModal($event)"
+    (onUploadImage)="uploadImage($event)"
   >
   </resource-list>
 </ng-template>

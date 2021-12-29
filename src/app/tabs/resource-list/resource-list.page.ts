@@ -10,6 +10,8 @@ import {ModalService} from "../../services/modal/modal.service";
 import {ResourceViewModal} from "./modals/resource-view/resource-view.modal";
 import {AlertController} from "@ionic/angular";
 import {ResourceEditModal} from "./modals/resource-edit/resource-edit.modal";
+import {Camera, CameraResultType, CameraSource, Photo} from "@capacitor/camera";
+import {ToasterService} from "../../services/toaster/toaster.service";
 
 @Component({
   templateUrl: './resource-list.page.html',
@@ -33,6 +35,7 @@ export class ResourceListPage implements OnInit, OnDestroy {
     private resourceListApi: ResourceListApi,
     private modalService: ModalService,
     private alertCtrl: AlertController,
+    private toaster: ToasterService,
   ) { }
 
   ngOnInit(): void {
@@ -50,6 +53,37 @@ export class ResourceListPage implements OnInit, OnDestroy {
 
   openResourceEditModal(resource: Resource): void {
     this.modalService.open(ResourceEditModal, this.platform, {resource, platform: this.platform, currentUser: this.currentUser});
+  }
+
+  async uploadImage(resourceId: string): Promise<void> {
+    const capturedPhoto: Photo = await Camera.getPhoto({
+      resultType: CameraResultType.Base64,
+      source: CameraSource.Prompt,
+      promptLabelHeader: 'Выберите источник',
+      promptLabelPhoto: 'Галерея',
+      promptLabelPicture: 'Сделать снимок',
+      promptLabelCancel: 'Отмена',
+      quality: 100,
+      allowEditing: false,
+    });
+    this.showLoading(true);
+    const base64 = await fetch('data:image/jpeg;base64,' + capturedPhoto.base64String);
+    const blob = await base64.blob();
+    const formData = new FormData();
+    formData.append('image', blob, resourceId);
+    this.resourceListApi.uploadImage(resourceId, formData)
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.showLoading(false);
+        })
+      )
+      .subscribe(editedResource => {
+        const index = this.currentUser.resourceList.findIndex(res => res.id === editedResource.id);
+        this.currentUser.resourceList.splice(index, 1, editedResource);
+        this.currentUserService.setCurrentUser(this.currentUser);
+        this.toaster.show('Изображение добавлено', 'success', this.platform);
+      });
   }
 
   async showAlert(resourceId: string, isPersonalList: boolean) {

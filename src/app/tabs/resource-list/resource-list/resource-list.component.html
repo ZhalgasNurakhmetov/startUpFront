@@ -1,6 +1,11 @@
 <ion-virtual-scroll class="resource-list resource-list__list" [items]="resourceList" [trackBy]="trackById" *ngIf="resourceList?.length; else noResourceList">
   <ion-item-sliding *virtualItem="let resource">
     <ion-item-options side="start">
+      <ion-item-option [mode]="platform" color="primary" [disabled]="isLoading" (click)="onUploadImage.emit(resource.id)">
+        <ion-text [mode]="platform">
+          Изображение
+        </ion-text>
+      </ion-item-option>
       <ion-item-option [mode]="platform" color="warning" [disabled]="isLoading" (click)="onOpenResourceEditModal.emit(resource)">
         <ion-text [mode]="platform">
           Редактировать

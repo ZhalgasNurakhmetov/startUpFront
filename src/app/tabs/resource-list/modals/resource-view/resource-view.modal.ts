@@ -5,6 +5,7 @@ import {AlertController, ModalController} from "@ionic/angular";
 import {ResourceListApi} from "../../api/resource-list.api";
 import {finalize, take} from "rxjs/operators";
 import {CurrentUserService} from "../../../../services/current-user/current-user.service";
+import {environment} from "../../../../../environments/environment";
 
 @Component({
   templateUrl: './resource-view.modal.html',
@@ -18,6 +19,8 @@ export class ResourceViewModal {
   @Input() currentUser: User;
 
   isLoading: boolean;
+
+  apiUrl = environment.apiUrl;
 
   constructor(
     private modalCtrl: ModalController,

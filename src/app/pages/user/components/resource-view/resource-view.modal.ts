@@ -7,6 +7,7 @@ import {UserService} from "../../../../services/user/user.service";
 import {combineLatest, Subject} from "rxjs";
 import {finalize, take, takeUntil} from "rxjs/operators";
 import {UserApi} from "../../api/user.api";
+import {environment} from "../../../../../environments/environment";
 
 @Component({
   templateUrl: './resource-view.modal.html',
@@ -23,6 +24,8 @@ export class ResourceViewModal implements OnInit, OnDestroy{
   currentUserId: string;
   isLoading: boolean;
   isFavorite: boolean;
+
+  apiUrl = environment.apiUrl;
 
   private unsubscribe$ = new Subject();
 

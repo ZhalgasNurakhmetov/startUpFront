@@ -28,34 +28,41 @@ export class RegularApiErrorHandler implements ApiErrorHandler {
       switch (apiError.status) {
         case ServerSideErrorStatusEnum.BAD_REQUEST: {
           console.error('BAD REQUEST', apiError);
-          const error = typeof apiError.error === 'string' ? JSON.parse(apiError.error) : apiError.error;
-          this.ngZone.run(() => this.toaster.show(error.message, 'danger', this.platformService.getPlatform()));
+          const error = apiError.error;
+          this.ngZone.run(() => this.toaster.show(error.detail, 'danger', this.platformService.getPlatform()));
           break;
         }
         case ServerSideErrorStatusEnum.UNAUTHORIZED: {
           console.error('UNAUTHORIZED', apiError);
-          const error = typeof apiError.error === 'string' ? JSON.parse(apiError.error) : apiError.error;
-          this.ngZone.run(() => this.toaster.show(error.message, 'danger', this.platformService.getPlatform()));
+          const error = apiError.error;
+          this.ngZone.run(() => this.toaster.show(error.detail, 'danger', this.platformService.getPlatform()));
           break;
         }
         case ServerSideErrorStatusEnum.USER_NOT_EXIST: {
           console.error('USER_NOT_EXIST', apiError);
-          const error = typeof apiError.error === 'string' ? JSON.parse(apiError.error) : apiError.error;
-          this.ngZone.run(() => this.toaster.show(error.message, 'danger', this.platformService.getPlatform()));
+          const error = apiError.error;
+          this.ngZone.run(() => this.toaster.show(error.detail, 'danger', this.platformService.getPlatform()));
           this.authService.logout();
           break;
         }
         case ServerSideErrorStatusEnum.NOT_FOUND: {
           console.error('NOT_FOUND', apiError);
           this.ngZone.run(() =>
-            this.toaster.show(apiError.error.message, 'danger', this.platformService.getPlatform())
+            this.toaster.show(apiError.error.detail, 'danger', this.platformService.getPlatform())
+          );
+          break;
+        }
+        case ServerSideErrorStatusEnum.NOT_ACCEPTABLE: {
+          console.error('NOT_FOUND', apiError);
+          this.ngZone.run(() =>
+            this.toaster.show(apiError.error.detail, 'danger', this.platformService.getPlatform())
           );
           break;
         }
         case ServerSideErrorStatusEnum.FORBIDDEN: {
           console.error('FORBIDDEN', apiError);
           this.ngZone.run(() =>
-            this.toaster.show(apiError.error.message, 'danger', this.platformService.getPlatform())
+            this.toaster.show(apiError.error.detail, 'danger', this.platformService.getPlatform())
           );
           break;
         }
@@ -69,7 +76,7 @@ export class RegularApiErrorHandler implements ApiErrorHandler {
         case ServerSideErrorStatusEnum.ALREADY_EXIST_ERROR: {
           console.error('ALREADY_EXIST_ERROR', apiError);
           this.ngZone.run(() =>
-            this.toaster.show(apiError.error.message, 'danger', this.platformService.getPlatform())
+            this.toaster.show(apiError.error.detail, 'danger', this.platformService.getPlatform())
           );
           break;
         }

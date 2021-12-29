@@ -23,4 +23,8 @@ export class ResourceListApi {
   editResource(resourceInfo: ResourceEditFormModel, resourceId: string): Observable<Resource> {
     return this.http.put<Resource>(`${environment.apiUrl}/api/resource/edit/${resourceId}`, resourceInfo);
   }
+
+  uploadImage(resourceId: string, formData: FormData): Observable<Resource> {
+    return this.http.post<Resource>(`${environment.apiUrl}/api/image/upload/${resourceId}`, formData);
+  }
 }

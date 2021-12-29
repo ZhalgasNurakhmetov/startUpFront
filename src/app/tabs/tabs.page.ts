@@ -11,6 +11,7 @@ import {User} from "../core/models/user";
 import {Network} from "@capacitor/network";
 import {StatusBar} from "@capacitor/status-bar";
 import {SplashScreen} from "@capacitor/splash-screen";
+import {LocalNotifications} from "@capacitor/local-notifications";
 
 @Component({
   templateUrl: 'tabs.page.html',
@@ -72,6 +73,23 @@ export class TabsPage implements OnInit, OnDestroy{
         chatList.push(newChat);
       }
       this.chatService.setChatList(chatList);
+      if (message.userId !== this.currentUser.id) {
+        LocalNotifications.schedule({
+          notifications: [
+            {
+              id: 3,
+              title: `${message?.userInfo?.firstName} ${message?.userInfo?.lastName}`,
+              body: message?.message,
+              autoCancel: true,
+              channelId: 'chatChannel',
+              schedule: {
+                allowWhileIdle: true,
+              },
+              actionTypeId: 'CHAT_MESSAGE'
+            },
+          ],
+        });
+      }
     };
   }
 
