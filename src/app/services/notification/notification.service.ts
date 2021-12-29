@@ -14,8 +14,8 @@ export class NotificationService {
   };
 
   async initializeNotificationChannels() {
-    await LocalNotifications.createChannel(this.chatChannel);
     await LocalNotifications.requestPermissions();
+    await LocalNotifications.createChannel(this.chatChannel);
   }
 
   async registerChatAction() {
