@@ -1,3 +1,7 @@
+<ion-header [mode]="platform">
+  <ion-toolbar [mode]="platform" color="tertiary">
+  </ion-toolbar>
+</ion-header>
 <ion-content class="layout">
   <ion-progress-bar [mode]="platform" color="tertiary" type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
   <div class="search">

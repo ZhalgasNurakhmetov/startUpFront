@@ -1,3 +1,7 @@
+<ion-header [mode]="platform">
+  <ion-toolbar [mode]="platform" color="tertiary">
+  </ion-toolbar>
+</ion-header>
 <ion-content class="layout">
   <div class="chat">
     <ion-virtual-scroll class="contact contact__list" [items]="chatList" [trackBy]="trackById" *ngIf="chatList?.length; else noChatList">

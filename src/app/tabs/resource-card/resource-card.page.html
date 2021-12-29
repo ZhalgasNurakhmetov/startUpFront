@@ -1,7 +1,11 @@
+<ion-header [mode]="platform">
+  <ion-toolbar [mode]="platform" color="tertiary">
+  </ion-toolbar>
+</ion-header>
 <ion-content [scrollY]="false" class="layout">
   <div class="resource-card">
     <div class="resource-card resource-card__img">
-      <img src="assets/svg/add_resource.svg" width="200rem" height="200rem" alt="Изображение добавления ресурса">
+      <img src="assets/svg/add_resource.svg" width="150rem" height="150rem" alt="Изображение добавления ресурса">
     </div>
     <div class="resource-card resource-card__text">
       <ion-card [mode]="platform" button="true" class="resource-card-action" (click)="navigateToResourceCreate(true)">
