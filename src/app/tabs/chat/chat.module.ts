@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ChatRoutingModule } from './chat-routing.module';
 import {ChatListPage} from "./chat-list.page";
 import {IonicModule} from "@ionic/angular";
+import {ScrollingModule} from "@angular/cdk/scrolling";
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import {IonicModule} from "@ionic/angular";
   imports: [
     CommonModule,
     ChatRoutingModule,
-    IonicModule
+    IonicModule,
+    ScrollingModule
   ]
 })
 export class ChatModule { }

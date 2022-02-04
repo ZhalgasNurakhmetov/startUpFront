@@ -55,7 +55,7 @@ export class ResourceListPage implements OnInit, OnDestroy {
     this.modalService.open(ResourceEditModal, this.platform, {resource, platform: this.platform, currentUser: this.currentUser});
   }
 
-  async uploadImage(resourceId: string): Promise<void> {
+  async uploadImage({id, index}): Promise<void> {
     const capturedPhoto: Photo = await Camera.getPhoto({
       resultType: CameraResultType.Base64,
       source: CameraSource.Prompt,
@@ -70,8 +70,8 @@ export class ResourceListPage implements OnInit, OnDestroy {
     const base64 = await fetch('data:image/jpeg;base64,' + capturedPhoto.base64String);
     const blob = await base64.blob();
     const formData = new FormData();
-    formData.append('image', blob, resourceId);
-    this.resourceListApi.uploadImage(resourceId, formData)
+    formData.append('image', blob, id);
+    this.resourceListApi.uploadImage(id, formData)
       .pipe(
         take(1),
         finalize(() => {
@@ -79,14 +79,13 @@ export class ResourceListPage implements OnInit, OnDestroy {
         })
       )
       .subscribe(editedResource => {
-        const index = this.currentUser.resourceList.findIndex(res => res.id === editedResource.id);
         this.currentUser.resourceList.splice(index, 1, editedResource);
         this.currentUserService.setCurrentUser(this.currentUser);
         this.toaster.show('Изображение добавлено', 'success', this.platform);
       });
   }
 
-  async showAlert(resourceId: string, isPersonalList: boolean) {
+  async showAlert({id, isPersonal, index}) {
     const alert = await this.alertCtrl.create({
       animated: true,
       mode: this.platform,
@@ -100,7 +99,7 @@ export class ResourceListPage implements OnInit, OnDestroy {
         }, {
           text: 'Готово',
           handler: () => {
-            this.deleteResource(resourceId, isPersonalList);
+            this.deleteResource(id, isPersonal, index);
           }
         }
       ]
@@ -108,9 +107,9 @@ export class ResourceListPage implements OnInit, OnDestroy {
     return await alert.present();
   }
 
-  deleteResource(resourceId: string, isPersonalList: boolean): void {
+  deleteResource(id: string, isPersonal: boolean, index: number): void {
     this.showLoading(true);
-    this.resourceListApi.deleteResource(resourceId)
+    this.resourceListApi.deleteResource(id)
       .pipe(
         take(1),
         finalize(() => {
@@ -118,11 +117,9 @@ export class ResourceListPage implements OnInit, OnDestroy {
         })
       )
       .subscribe(deletedResource => {
-        if (isPersonalList) {
-          const index = this.personalResourceList.findIndex(resource  => resource.id === deletedResource.id);
+        if (isPersonal) {
           this.personalResourceList.splice(index, 1);
         } else {
-          const index = this.interestedResourceList.findIndex(resource  => resource.id === deletedResource.id);
           this.interestedResourceList.splice(index, 1);
         }
         this.currentUserService.setCurrentUser({

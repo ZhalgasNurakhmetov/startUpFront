@@ -21,11 +21,11 @@
     </ion-segment-button>
   </ion-segment>
 </ion-header>
-<ion-content class="layout">
-  <div class="contact">
-    <user-contact-list [contactList]="following" [platform]="platform" *ngIf="isFollowingList; else followerList"
-                  (onNavigateToUserPage)="navigateToUserPage($event)"></user-contact-list>
-  </div>
+<ion-content [ngClass]="{
+  'layout': (isFollowingList && !following?.length) || (!isFollowingList && !followers?.length)
+}" [scrollY]="(isFollowingList && following?.length) || (!isFollowingList && followers?.length)">
+  <user-contact-list [contactList]="following" [platform]="platform" *ngIf="isFollowingList; else followerList"
+                (onNavigateToUserPage)="navigateToUserPage($event)"></user-contact-list>
 </ion-content>
 
 <ng-template #followerList>

@@ -9,6 +9,7 @@ import {takeUntil} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {AppRoutes} from '../../app.routes';
 import {environment} from "../../../environments/environment";
+import {WebSocketService} from "../../services/webSocket/web-socket.service";
 
 @Component({
   templateUrl: './chat-list.page.html',
@@ -30,6 +31,7 @@ export class ChatListPage implements OnInit, OnDestroy {
     private chatService: ChatService,
     private cd: ChangeDetectorRef,
     private router: Router,
+    private webSocketService: WebSocketService,
   ) { }
 
   ngOnInit(): void {
@@ -38,8 +40,19 @@ export class ChatListPage implements OnInit, OnDestroy {
     this.subscribeToChatList();
   }
 
-  setCurrentChat(chat: Chat): void {
-    this.chatService.setCurrentChat(chat);
+  setCurrentChat(chat: Chat, index: number): void {
+    this.webSocketService.readMessage(JSON.stringify({
+      chatId: chat.id,
+      userId: this.currentUserId,
+      contactId: chat.firstUserId === this.currentUserId ? chat.secondUserId : chat.firstUserId
+    }));
+    this.chatList[index].messages.forEach(message => {
+      if (message.userId !== this.currentUserId) {
+        message.isRed = true;
+      }
+    });
+    this.chatService.setCurrentChat(this.chatList[index]);
+    this.chatService.setChatList(this.chatList);
     this.router.navigate([AppRoutes.personalChat]);
   }
 

@@ -15,8 +15,8 @@ export class ResourceListComponent {
 
   @Output() onOpenResourceViewModal = new EventEmitter<Resource>();
   @Output() onOpenResourceEditModal = new EventEmitter<Resource>();
-  @Output() onDeleteResource = new EventEmitter<string>();
-  @Output() onUploadImage = new EventEmitter<string>();
+  @Output() onDeleteResource = new EventEmitter<{id: string; isPersonal: boolean; index: number}>();
+  @Output() onUploadImage = new EventEmitter<{id: string; index: number}>();
 
   constructor() { }
 

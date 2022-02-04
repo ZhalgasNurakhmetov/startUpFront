@@ -5,6 +5,7 @@ import { ResourceListRoutingModule } from './resource-list-routing.module';
 import {ResourceListPage} from "./resource-list.page";
 import {IonicModule} from "@ionic/angular";
 import {ResourceListComponent} from "./resource-list/resource-list.component";
+import {ScrollingModule} from "@angular/cdk/scrolling";
 
 
 @NgModule({
@@ -12,10 +13,11 @@ import {ResourceListComponent} from "./resource-list/resource-list.component";
     ResourceListPage,
     ResourceListComponent,
   ],
-  imports: [
-    CommonModule,
-    ResourceListRoutingModule,
-    IonicModule
-  ]
+    imports: [
+        CommonModule,
+        ResourceListRoutingModule,
+        IonicModule,
+        ScrollingModule
+    ]
 })
 export class ResourceListModule { }

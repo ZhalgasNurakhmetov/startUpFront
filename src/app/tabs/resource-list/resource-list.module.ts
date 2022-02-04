@@ -9,6 +9,7 @@ import {ResourceListComponent} from "./resource-list/resource-list.component";
 import {ResourceListApi} from "./api/resource-list.api";
 import {resourceListModalComponents} from "./modals";
 import {ReactiveFormsModule} from "@angular/forms";
+import {ScrollingModule} from "@angular/cdk/scrolling";
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import {ReactiveFormsModule} from "@angular/forms";
         ResourceListRoutingModule,
         IonicModule,
         ReactiveFormsModule,
+        ScrollingModule,
     ],
   providers: [
     ResourceListPageGuard,

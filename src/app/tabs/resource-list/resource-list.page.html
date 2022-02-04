@@ -18,21 +18,21 @@
     </ion-segment-button>
   </ion-segment>
 </ion-header>
-<ion-content class="layout">
+<ion-content [ngClass]="{
+  'layout': (isPersonal && !personalResourceList?.length) || (!isPersonal && !interestedResourceList?.length)
+}" [scrollY]="(isPersonal && personalResourceList?.length) || (!isPersonal && interestedResourceList?.length)">
   <ion-progress-bar [mode]="platform" color="tertiary" type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
-  <div class="resource-list">
     <resource-list
       *ngIf="isPersonal; else interestedResource"
       [resourceList]="personalResourceList"
       [platform]="platform"
       [isLoading]="isLoading"
-      (onDeleteResource)="showAlert($event, true)"
+      (onDeleteResource)="showAlert($event)"
       (onOpenResourceViewModal)="openResourceViewModal($event)"
       (onOpenResourceEditModal)="openResourceEditModal($event)"
       (onUploadImage)="uploadImage($event)"
     >
     </resource-list>
-  </div>
 </ion-content>
 
 <ng-template #interestedResource>
@@ -40,7 +40,7 @@
     [resourceList]="interestedResourceList"
     [platform]="platform"
     [isLoading]="isLoading"
-    (onDeleteResource)="showAlert($event, false)"
+    (onDeleteResource)="showAlert($event)"
     (onOpenResourceViewModal)="openResourceViewModal($event)"
     (onOpenResourceEditModal)="openResourceEditModal($event)"
     (onUploadImage)="uploadImage($event)"

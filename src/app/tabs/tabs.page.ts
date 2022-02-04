@@ -40,6 +40,7 @@ export class TabsPage implements OnInit, OnDestroy{
     this.getChatList();
     this.subscribeToMessage();
     this.checkNetworkConnection();
+    this.subscribeToReadMessages();
     // StatusBar.hide();
     // SplashScreen.hide();
   }
@@ -51,13 +52,23 @@ export class TabsPage implements OnInit, OnDestroy{
     });
   }
 
+  chatListSorting(a: Chat, b: Chat) {
+    if (a.messages[a.messages.length - 1].dateTime > b.messages[b.messages.length - 1].dateTime) {
+      return 1;
+    }
+    if (a.messages[a.messages.length - 1].dateTime < b.messages[b.messages.length - 1].dateTime) {
+      return  -1;
+    }
+  }
+
   private getChatList(): void {
     this.tabsApi.getChatList()
       .pipe(
         take(1),
       )
       .subscribe(chatList => {
-        this.chatService.setChatList(chatList);
+        const sortedList = chatList.sort(this.chatListSorting);
+        this.chatService.setChatList(sortedList);
       });
   }
 
@@ -68,9 +79,10 @@ export class TabsPage implements OnInit, OnDestroy{
       const index = chatList.findIndex(chat => chat?.id === message.chatId);
       if (index > -1) {
         chatList[index].messages.push(message);
+        chatList.sort(this.chatListSorting);
       } else {
         const newChat: Chat = this.createNewChat(message);
-        chatList.push(newChat);
+        chatList.unshift(newChat);
       }
       this.chatService.setChatList(chatList);
       if (message.userId !== this.currentUser.id) {
@@ -89,6 +101,17 @@ export class TabsPage implements OnInit, OnDestroy{
             },
           ],
         });
+      }
+    };
+  }
+
+  private subscribeToReadMessages(): void {
+    this.webSocketService.readMessageWebsocket.onmessage = (event) => {
+      this.getChatList();
+      const currentChat = this.chatService.getCurrentChat();
+      if (currentChat) {
+        const chat = this.chatService.getChatListValue().find(c => c.id === currentChat.id);
+        this.chatService.setCurrentChat(chat);
       }
     };
   }

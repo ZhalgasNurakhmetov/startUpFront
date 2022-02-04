@@ -1,5 +1,11 @@
-<ion-virtual-scroll class="contact contact__list" [items]="contactList" [trackBy]="trackById" *ngIf="contactList?.length; else noContactList">
-  <ion-item lines="full" [mode]="platform" *virtualItem="let contact" (click)="onNavigateToUserPage.emit(contact.id)">
+<cdk-virtual-scroll-viewport
+  *ngIf="contactList?.length !== 0; else noContactList"
+  itemSize="56"
+  minBufferPx="900"
+  maxBufferPx="1350"
+>
+  <ion-item [mode]="platform" lines="full" *cdkVirtualFor="let contact of contactList; let i = index; trackBy: trackById; let idOdd = odd"
+            [class.odd]="idOdd" (click)="onNavigateToUserPage.emit(contact.id)">
     <ion-avatar>
       <ion-img *ngIf="contact?.photoPath; else defaultPhoto" [src]="apiUrl + contact?.photoPath"></ion-img>
     </ion-avatar>
@@ -9,14 +15,16 @@
       </ion-text>
     </ion-label>
   </ion-item>
-</ion-virtual-scroll>
+</cdk-virtual-scroll-viewport>
 
 <ng-template #noContactList>
-  <div class="contact contact__empty">
-    <ion-text [mode]="platform" class="ion-margin-bottom">
-      Список контактов пуст
-    </ion-text>
-    <img src="assets/svg/empty.svg" width="300rem" height="300rem" alt="Нет результатов">
+  <div class="contact">
+    <div class="contact contact__empty">
+      <ion-text [mode]="platform" class="ion-margin-bottom">
+        Список контактов пуст
+      </ion-text>
+      <img src="assets/svg/empty.svg" width="300rem" height="300rem" alt="Нет результатов">
+    </div>
   </div>
 </ng-template>
 

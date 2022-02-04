@@ -5,6 +5,7 @@ import { ContactRoutingModule } from './contact-routing.module';
 import {ContactPage} from "./contact.page";
 import {IonicModule} from "@ionic/angular";
 import {ContactListComponent} from "./contact-list/contact-list.component";
+import {ScrollingModule} from "@angular/cdk/scrolling";
 
 
 @NgModule({
@@ -12,10 +13,11 @@ import {ContactListComponent} from "./contact-list/contact-list.component";
     ContactPage,
     ContactListComponent,
   ],
-  imports: [
-    CommonModule,
-    ContactRoutingModule,
-    IonicModule
-  ]
+    imports: [
+        CommonModule,
+        ContactRoutingModule,
+        IonicModule,
+        ScrollingModule
+    ]
 })
 export class ContactModule { }
