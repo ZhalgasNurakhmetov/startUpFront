@@ -11,7 +11,7 @@ export class WebSocketService {
 
   connectToWebSocket(userId: string): void {
     this.webSocket = new WebSocket(`${environment.webSocketUrl}/ws/${userId}`);
-    this.readMessageWebsocket = new WebSocket(`${environment.webSocketUrl}/ws/read_message`);
+    this.readMessageWebsocket = new WebSocket(`${environment.webSocketUrl}/ws/read_message/${userId}`);
   }
 
   sendMessage(message: string): void {

@@ -5,7 +5,7 @@
         <img [src]="slide.imgUrl" width="300rem" height="300rem" alt="Слайд приветствия"/>
       </div>
       <div class="slide slide__text">
-        <ion-text [mode]="platform" class="slide-text">{{slide.text}}</ion-text>
+        <ion-text color="tertiary" [mode]="platform" class="slide-text">{{slide.text}}</ion-text>
         <ion-button *ngIf="slide.last" [mode]="platform" class="ion-margin-top slide-button" color="tertiary" (click)="navigateToLogin()">
           <ion-text [mode]="platform">Начать!</ion-text>
         </ion-button>

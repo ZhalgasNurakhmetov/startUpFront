@@ -13,7 +13,7 @@
   >
     <ion-item class="ion-no-padding item-white"
       [mode]="platform"
-      lines="full"
+      lines="full" color="{{chat?.unreadMessages ? 'secondary' : 'light'}}"
       *cdkVirtualFor="let chat of chatList; let i = index; trackBy: trackById"
       (click)="setCurrentChat(chat, i)"
     >
@@ -46,13 +46,14 @@
           {{ chat.messages[chat.messages?.length-1]?.dateTime | date:'dd.MM.yy HH:mm' }}
         </div>
       </ion-label>
-<!--      <ion-badge
+      <ion-badge
         [mode]="platform"
-        color="tertiary"
+        color="danger"
         slot="end"
+        *ngIf="chat?.unreadMessages"
       >
-
-      </ion-badge>-->
+        {{chat?.unreadMessages}}
+      </ion-badge>
     </ion-item>
   </cdk-virtual-scroll-viewport>
 </ion-content>

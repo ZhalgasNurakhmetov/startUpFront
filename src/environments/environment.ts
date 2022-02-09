@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   test: false,
-  apiUrl: 'https://startupback.herokuapp.com',
-  webSocketUrl: 'ws://startupback.herokuapp.com'
+  apiUrl: 'http://localhost:8000',
+  webSocketUrl: 'ws://localhost:8000'
 };
 
 /*

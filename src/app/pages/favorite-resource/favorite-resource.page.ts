@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {Mode} from "@ionic/core";
 import {PlatformService} from "../../services/platform/platform.service";
-import {Resource, User, UserLike} from "../../core/models/user";
+import { User, UserLike} from "../../core/models/user";
 import {CurrentUserService} from "../../services/current-user/current-user.service";
 import {ModalService} from "../../services/modal/modal.service";
 import {ResourceViewModal} from "./modals/resource-view/resource-view.modal";
@@ -60,7 +60,7 @@ export class FavoriteResourcePage implements OnInit, OnDestroy {
       });
   }
 
-  trackById(index, { id }: Resource) {
+  trackById(index, { id }: UserLike): string {
     return id;
   }
 

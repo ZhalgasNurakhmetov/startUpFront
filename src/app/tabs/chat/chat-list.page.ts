@@ -46,6 +46,8 @@ export class ChatListPage implements OnInit, OnDestroy {
       userId: this.currentUserId,
       contactId: chat.firstUserId === this.currentUserId ? chat.secondUserId : chat.firstUserId
     }));
+    this.chatService.setTotalUnreadMessages(this.chatService.getTotalUnreadMessagesValue() - chat.unreadMessages);
+    this.chatList[index].unreadMessages = 0;
     this.chatList[index].messages.forEach(message => {
       if (message.userId !== this.currentUserId) {
         message.isRed = true;

@@ -9,6 +9,7 @@ export interface Chat {
   firstUserPhotoPath: string;
   secondUserPhotoPath: string;
   messages: Message[];
+  unreadMessages?: number;
 }
 
 export interface Message {

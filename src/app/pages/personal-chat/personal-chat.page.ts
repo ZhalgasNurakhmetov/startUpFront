@@ -1,17 +1,8 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild
-} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Mode} from '@ionic/core';
 import {PlatformService} from '../../services/platform/platform.service';
 import {ChatService} from '../../services/chat/chat.service';
 import {Chat, Message} from '../../core/models/chat';
-import {Subject} from 'rxjs';
 import {CurrentUserService} from '../../services/current-user/current-user.service';
 import {MessageFormService} from './form/message.form.service';
 import {WebSocketService} from '../../services/webSocket/web-socket.service';
@@ -24,10 +15,7 @@ import {UserRoutes} from "../user/user.routes";
   templateUrl: './personal-chat.page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PersonalChatPage implements OnInit, AfterViewInit, OnDestroy {
-
-  // TODO fix message list resets (reloads) on every new message
-  // TODO fix message list does not scroll to bottom
+export class PersonalChatPage implements OnInit, OnDestroy {
 
   @ViewChild(IonContent, {read: IonContent, static: false}) content: IonContent;
 
@@ -65,13 +53,10 @@ export class PersonalChatPage implements OnInit, AfterViewInit, OnDestroy {
     this.chat = this.chatService.getCurrentChat();
     this.isFirstUser = this.currentUserId === this.chat?.firstUserId;
     this.subscribeToMessage();
-    setTimeout(() => {
-      this.content.scrollToBottom(0);
-    });
   }
 
-  ngAfterViewInit(): void {
-
+  ionViewWillEnter() {
+    this.content.scrollToBottom(0);
   }
 
   trackById(index, { id }: Message): string {
@@ -90,22 +75,39 @@ export class PersonalChatPage implements OnInit, AfterViewInit, OnDestroy {
     this.form.reset();
   }
 
-  scrollDown(): void {
-
-  }
-
-  navigateToContactPage(): void {
-    const id = this.isFirstUser ? this.chat?.secondUserId : this.chat?.firstUserId;
+  navigateToContactPage(id: string): void {
     this.router.navigate([AppRoutes.user, UserRoutes.profile, id]);
   }
 
   private subscribeToMessage(): void {
     this.webSocketService.webSocket.onmessage = (event) => {
       const message: Message = JSON.parse(event.data);
+      const chatList = this.chatService.getChatListValue();
       if (message.chatId === this.chat.id) {
+        message.isRed = true;
         this.chat.messages.push(message);
-        this.cd.markForCheck();
         this.content.scrollToBottom(0);
+        const index = chatList.findIndex(ch => ch.id === this.chat.id);
+        chatList.splice(index, 1, this.chat);
+        this.webSocketService.readMessage(JSON.stringify({
+          chatId: this.chat.id,
+          userId: this.currentUserId,
+          contactId: this.chat.firstUserId === this.currentUserId ? this.chat.secondUserId : this.chat.firstUserId
+        }));
+        this.cd.markForCheck();
+      } else {
+        this.chatService.setTotalUnreadMessages(this.chatService.getTotalUnreadMessagesValue() + 1);
+        const index = chatList.findIndex(ch => ch?.id === message?.chatId);
+        if (index > -1) {
+          chatList[index].messages.push(message);
+          chatList[index].unreadMessages = chatList[index].unreadMessages ? chatList[index].unreadMessages + 1 : 1;
+          chatList.sort(this.chatService.chatListSorting);
+        } else {
+          const newChat: Chat = this.chatService.createNewChat(message, this.currentUserService.getCurrentUserValue());
+          newChat.unreadMessages = 1;
+          chatList.unshift(newChat);
+        }
+        this.chatService.setChatList(chatList);
       }
     };
   }

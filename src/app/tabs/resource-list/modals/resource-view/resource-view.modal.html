@@ -7,7 +7,7 @@
 </ion-header>
 <ion-content class="layout">
   <div class="resource">
-    <div class="resource resource__owner">
+    <div class="resource resource__owner" *ngIf="resource?.personal">
       <ion-button [mode]="platform" class="favorite-action" color="danger" [disabled]="isLoading" (click)="showAlert(resource?.id)" *ngIf="resource?.available; else openButton">
         <ion-text [mode]="platform">
           Закрыть доступ
@@ -23,8 +23,8 @@
           <li><ion-text [mode]="platform">{{resource?.title}}</ion-text></li>
           <li><ion-text [mode]="platform">{{resource?.author}}</ion-text></li>
           <li *ngIf="resource.year"><ion-text [mode]="platform">{{resource?.year}} г.</ion-text></li>
-          <li><ion-text [mode]="platform">{{resource?.literature}}</ion-text></li>
-          <li><ion-text [mode]="platform">{{resource?.language}}</ion-text></li>
+          <li><ion-text [mode]="platform">{{resource?.literature}} литература</ion-text></li>
+          <li><ion-text [mode]="platform">{{resource?.language}} язык</ion-text></li>
           <li *ngIf="resource.pageCount"><ion-text [mode]="platform">{{resource?.pageCount}} стр.</ion-text></li>
           <li *ngIf="resource.condition"><ion-text [mode]="platform">{{resource?.condition}} состояние</ion-text></li>
           <li><ion-text [mode]="platform">{{resource?.composition}}</ion-text></li>

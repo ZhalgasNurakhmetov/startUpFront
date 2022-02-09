@@ -3,62 +3,47 @@
     <ion-buttons slot="start">
       <ion-back-button [mode]="platform" [text]="'Назад'"></ion-back-button>
     </ion-buttons>
-    <ion-title (click)="navigateToContactPage()"><ion-text [mode]="platform">{{isFirstUser ? chat?.secondUserInfo : chat?.firstUserInfo}}</ion-text></ion-title>
+    <ion-title (click)="navigateToContactPage(isFirstUser ? this.chat?.secondUserId : this.chat?.firstUserId)"><ion-text [mode]="platform">{{isFirstUser ? chat?.secondUserInfo : chat?.firstUserInfo}}</ion-text></ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content class="layout">
-  <ion-virtual-scroll class="messages messages__list" [items]="chat?.messages" [trackBy]="trackById" *ngIf="chat?.messages?.length; else noMessages">
-    <div *virtualItem="let message" [style]="message?.userId === currentUserId ? personalStyles : contactStyles">
-      <ng-container *ngIf="message?.userId === currentUserId">
-        <div class="message message__personal">
-          <div>
-            <ion-label [mode]="platform">
-              <b>
-                <ion-text [mode]="platform">
-                  Вы
-                </ion-text>
-              </b>
-              <br>
-              <ion-text [mode]="platform">
-                {{message?.message}}
-              </ion-text>
-
-            </ion-label>
-          </div>
-          <div
-            class="message-time message-time__white"
-          >
-            <br>
-            {{ message?.dateTime | date:'dd.MM.yy HH:mm' }}
-          </div>
+<ion-content [ngClass]="{
+  'layout': !chat?.messages?.length
+}" [scrollY]="chat?.messages?.length">
+  <ion-grid
+    *ngIf="chat?.messages?.length !== 0; else noMessages"
+  >
+    <ion-row
+      *ngFor="let message of chat?.messages; let i = index; trackBy: trackById"
+    >
+      <ion-col
+        size="9"
+        *ngIf="message.userId !== currentUserId"
+        class="message message__other"
+      >
+        <b (click)="navigateToContactPage(message?.userId)">{{ message?.userInfo?.firstName}} {{message?.userInfo?.lastName }}</b><br>
+        <span>{{ message.message }}</span>
+        <div
+          class="message-time message-time__black"
+        >
+          <br>{{ message.dateTime | date:'dd.MM.yy HH:mm' }}
         </div>
-      </ng-container>
-      <ng-container *ngIf="message?.userId !== currentUserId">
-        <div class="message message__other">
-          <div>
-            <ion-label [mode]="platform">
-              <b>
-                <ion-text [mode]="platform">
-                  {{message?.userInfo?.firstName}}
-                </ion-text>
-              </b>
-              <br>
-              <ion-text [mode]="platform">
-                {{message?.message}}
-              </ion-text>
-
-            </ion-label>
-          </div>
-          <div
-            class="message-time message-time__black"
-          >
-            <br>
-            {{ message?.dateTime | date:'dd.MM.yy HH:mm' }}
-          </div>
+      </ion-col>
+      <ion-col
+        offset="3"
+        size="9"
+        *ngIf="message.userId === currentUserId"
+        class="message message__personal"
+      >
+        <b>Вы</b><br>
+        <span>{{ message.message }}</span>
+        <div
+          class="message-time message-time__white"
+        >
+          <br>{{ message.dateTime | date:'dd.MM.yy HH:mm' }}
         </div>
-      </ng-container>
-    </div>
-  </ion-virtual-scroll>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
 <ion-footer [mode]="platform">
   <ion-toolbar [mode]="platform">
@@ -95,10 +80,12 @@
 </ion-footer>
 
 <ng-template #noMessages>
-  <div class="contact contact__empty">
-    <ion-text [mode]="platform" class="ion-margin-bottom">
-      Начните переписку
-    </ion-text>
-    <img src="assets/svg/no_messages_in_chat.svg" width="300rem" height="300rem" alt="Нет результатов">
+  <div class="contact">
+    <div class="contact contact__empty">
+      <ion-text [mode]="platform" class="ion-margin-bottom">
+        Начните переписку
+      </ion-text>
+      <img src="assets/svg/no_messages_in_chat.svg" width="300rem" height="300rem" alt="Нет результатов">
+    </div>
   </div>
 </ng-template>

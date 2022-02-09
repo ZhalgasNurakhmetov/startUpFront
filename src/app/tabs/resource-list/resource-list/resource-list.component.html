@@ -4,8 +4,8 @@
   minBufferPx="900"
   maxBufferPx="1350"
 >
-  <ion-item-sliding *cdkVirtualFor="let resource of resourceList; let i = index; trackBy: trackById; let idOdd = odd"
-                    [class.odd]="idOdd">
+  <ion-item-sliding *cdkVirtualFor="let resource of resourceList; let i = index; trackBy: trackById; let isOdd = odd"
+                    [class.odd]="isOdd">
     <ion-item-options side="start">
       <ion-item-option [mode]="platform" color="primary" [disabled]="isLoading" (click)="onUploadImage.emit({id: resource.id, index: i})">
         <ion-text [mode]="platform">

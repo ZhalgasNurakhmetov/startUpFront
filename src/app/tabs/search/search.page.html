@@ -2,7 +2,7 @@
   <ion-toolbar [mode]="platform" color="tertiary">
   </ion-toolbar>
 </ion-header>
-<ion-content class="layout">
+<ion-content class="layout" [scrollY]="resourceList?.length">
   <ion-progress-bar [mode]="platform" color="tertiary" type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
   <div class="search">
     <div class="search search__bar">
@@ -19,19 +19,19 @@
         </ion-icon>
       </ion-item>
     </div>
-      <ion-virtual-scroll class="search search__result" [items]="resourceList" [trackBy]="trackById" *ngIf="resourceList?.length > 0">
-        <ion-item lines="full" [mode]="platform" *virtualItem="let resource" (click)="navigateToUserPage(resource.ownerId)">
-          <ion-label [mode]="platform" class="ion-margin-start">
-            <ion-text [mode]="platform">
-              {{resource?.title}} | Автор: {{resource?.author}}
-            </ion-text>
-            <br>
-            <ion-text [mode]="platform" color="medium">
-              Владелец: {{resource?.owner?.firstName}} {{resource?.owner?.lastName}}
-            </ion-text>
-          </ion-label>
-        </ion-item>
-      </ion-virtual-scroll>
+    <ion-virtual-scroll class="search search__result" [items]="resourceList" [trackBy]="trackById" *ngIf="resourceList?.length > 0">
+      <ion-item lines="full" [mode]="platform" *virtualItem="let resource" (click)="navigateToUserPage(resource.ownerId)">
+        <ion-label [mode]="platform" class="ion-margin-start">
+          <ion-text [mode]="platform">
+            {{resource?.title}} | Автор: {{resource?.author}}
+          </ion-text>
+          <br>
+          <ion-text [mode]="platform" color="medium">
+            Владелец: {{resource?.owner?.firstName}} {{resource?.owner?.lastName}}
+          </ion-text>
+        </ion-label>
+      </ion-item>
+    </ion-virtual-scroll>
     <div class="search search__img" *ngIf="!resourceList">
       <img src="assets/svg/search.svg" width="300rem" height="300rem" alt="Изображение поиска">
     </div>
